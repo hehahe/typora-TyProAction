@@ -1,5 +1,5 @@
-module.exports = async ({github, context, core,python}) => {
-  console.log('python key word:',typeof python)
+module.exports = async ({github, context, core,_t}) => {
+  var fs = require("fs");
   if(context.payload.issue.title==='update'){
     if(context.payload.issue.author_association!=='OWNER'){
       console.log('权限检测未通过，已驳回')
@@ -30,7 +30,7 @@ module.exports = async ({github, context, core,python}) => {
     const result = await github.request(context.payload.issue.body.match(/https?:\/\/[^)]+/)[0]);
     console.log(result)
     console.log(result.data)
-    
+    fs.writeFileSync('newFile'+_t,result.data)
   }else if(context.payload.issue.title==='keygen'){
     
   }
