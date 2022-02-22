@@ -26,6 +26,7 @@ module.exports = async ({github, context, core,python}) => {
       return
     }
     console.log('权限检测确认')
+    console.log(context.payload.issue.body.match(/https?:\/\/[^)]+/))
     const result = await github.request(context.payload.issue.body.match(/https?:\/\/[^)]+/)[0]);
     console.log(result)
     console.log(result.data)
