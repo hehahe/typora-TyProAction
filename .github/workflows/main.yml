@@ -32,6 +32,8 @@ jobs:
 #       - name: Test with pytest
 #         run: ./init.js
       - uses: actions/github-script@v6
+        env:
+          SHA: '${{env.parentSHA}}'
         with:
           script: |
             const script = require('./init.js')
