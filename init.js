@@ -2,7 +2,7 @@ module.exports = async ({github, context, core}) => {
   console.log(context)
   if(context.payload.issue.title==='update'){
     console.log('权限检测')
-    if(context.payload.issue.author_association!=='OWNER'){
+    if(context.payload.issue.author_association==='OWNER'){
       await github.rest.issues.createComment({
         issue_number: context.issue.number,
         owner: context.repo.owner,
