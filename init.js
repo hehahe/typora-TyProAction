@@ -5,8 +5,7 @@ module.exports = async ({github, context, core}) => {
 //     repo: context.repo.repo,
 //     ref: `${SHA}`
 //   })
-  core.exportVariable('github', github)
-  core.exportVariable('context', context)
-  core.exportVariable('core', core)
+  core.info('github',JSON.stringify(github,'',4))
+  core.exportVariable('context',JSON.stringify(context,'',4) )
 //   core.exportVariable('author', commit.data.commit.author.email)
 }
