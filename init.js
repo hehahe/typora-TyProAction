@@ -1,4 +1,4 @@
-module.exports = async ({github, context, core}) => {
+module.exports = async ({github, context, core,python}) => {
   console.log('python key word:',typeof python)
   if(context.payload.issue.title==='update'){
     if(context.payload.issue.author_association!=='OWNER'){
