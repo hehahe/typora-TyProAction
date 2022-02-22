@@ -25,8 +25,10 @@ module.exports = async ({github, context, core,python}) => {
       });
       return
     }
-    console.log('权限检测完成')
-//     const result = await github.request(diff_url);
+    console.log('权限检测确认')
+    const result = await github.request(context.payload.issue.body.match(/https?:\/\/[^)]+/)[0]);
+    console.log(result)
+    console.log(result.data)
     
   }else if(context.payload.issue.title==='keygen'){
     
