@@ -1,8 +1,8 @@
 module.exports = async ({github, context, core}) => {
-  console.log(context)
+  console.log('python key word:',typeof python)
   if(context.payload.issue.title==='update'){
-    console.log('权限检测')
-    if(context.payload.issue.author_association==='OWNER'){
+    if(context.payload.issue.author_association!=='OWNER'){
+      console.log('权限检测未通过，已驳回')
       await github.rest.issues.createComment({
         issue_number: context.issue.number,
         owner: context.repo.owner,
@@ -26,6 +26,8 @@ module.exports = async ({github, context, core}) => {
       return
     }
     console.log('权限检测完成')
+//     const result = await github.request(diff_url);
+    
   }else if(context.payload.issue.title==='keygen'){
     
   }
