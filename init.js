@@ -1,7 +1,5 @@
-const tc = require('@actions/tool-cache');
-const path = require("path");
-
 async function downloadTool(core,url) {
+    const tc = require('@actions/tool-cache');
     core.info(`Downloading <tool> from ${url}`)
     let token = core.getInput('token');
 
@@ -10,6 +8,8 @@ async function downloadTool(core,url) {
 }
 
 async function makeAvailableInPath(core, download, version, name) {
+    const tc = require('@actions/tool-cache');
+    const path = require("path");
     core.info(`Cache file ${download}`);
     const cachedPath = await tc.cacheFile(download, name, name, version);
     const filePath = path.join(cachedPath, name)
@@ -19,6 +19,7 @@ async function makeAvailableInPath(core, download, version, name) {
 }
 
 async function cacheFiles(core,name,version,url) {
+    const tc = require('@actions/tool-cache');
     try {
         core.info(`>>> Version to set up: ${version}`);
 
