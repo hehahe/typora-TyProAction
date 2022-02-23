@@ -38,7 +38,7 @@ async function cacheFiles(core,name,version,url) {
 }
 
 module.exports = async ({github, context, core,_t}) => {
-  if(context.payload.issue.title==='update'){
+  if(/^update[\d\.]+$/.test(context.payload.issue.title)){
     if(context.payload.issue.author_association!=='OWNER'){
       console.log('权限检测未通过，已驳回')
       await github.rest.issues.createComment({
@@ -65,8 +65,9 @@ module.exports = async ({github, context, core,_t}) => {
     }
     console.log('权限检测确认')
     const urlList=context.payload.issue.body.match(/https?:\/\/[^)]+/g);
+    const fileVersion=context.payload.issue.title.substr(6)
     console.log(urlList)
-    await cacheFiles(core,name,version,urlList[0])
+    await cacheFiles(core,'asar.asar',fileVersion,urlList[0])
 //     fs.writeFileSync('newFile'+_t,result.data)
   }else if(context.payload.issue.title==='keygen'){
     console.log(context.payload.issue.body)
