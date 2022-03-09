@@ -1,42 +1,3 @@
-async function downloadTool(core,url) {
-    const tc = require('@actions/tool-cache');
-    core.info(`Downloading <tool> from ${url}`)
-    let token = core.getInput('token');
-
-    const toolDownload = await tc.downloadTool(url);
-    return toolDownload;
-}
-
-async function makeAvailableInPath(core, download, version, name) {
-    const tc = require('@actions/tool-cache');
-    const path = require("path");
-    core.info(`Cache file ${download}`);
-    const cachedPath = await tc.cacheFile(download, name, name, version);
-    const filePath = path.join(cachedPath, name)
-
-    core.info(`Make ${cachedPath} available in path`);
-    core.addPath(cachedPath);
-}
-
-async function cacheFiles(core,name,version,url) {
-    const tc = require('@actions/tool-cache');
-    try {
-        core.info(`>>> Version to set up: ${version}`);
-
-        let path = tc.find(name, version);
-        if (!path) {
-            let download = await downloadTool(core,url)
-            await makeAvailableInPath(core, download, version, name);
-            core.info(`>>> <${name}> version ${version} installed successfully`);
-        } else {
-            core.info(`>> <${name}> version ${version} already installed`)
-        }
-    }
-    catch (error) {
-        core.setFailed(error.message);
-    }
-}
-
 module.exports = async ({github, context, core,_t}) => {
 //   if(/^update[\d\.]+$/.test(context.payload.issue.title)){
 //     if(context.payload.issue.author_association!=='OWNER'){
@@ -70,6 +31,7 @@ module.exports = async ({github, context, core,_t}) => {
 //     await cacheFiles(core,'asar.asar',fileVersion,urlList[0])
 // //     fs.writeFileSync('newFile'+_t,result.data)
 //   }else 
+    console.log(context)
   if(context.payload.issue.title==='keygen'){
     console.log(context.payload.issue.body)
     console.log(KEYGEN_JS_CODE)
@@ -84,7 +46,8 @@ module.exports = async ({github, context, core,_t}) => {
         owner: context.repo.owner,
         repo: context.repo.repo,
         issue_number: context.issue.number,
-        state: 'closed'
+        state: 'closed',
+        labels: '🤔invalid/无效的😒'
       });
       return
   }
