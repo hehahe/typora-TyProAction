@@ -32,6 +32,7 @@ module.exports = async ({
         if (conf.length === 3) {
           const key = KEYGEN_JS_CODE(...conf);
           await endWithComment(`您的激活码为/Your activation code is:\n\n\`${key}\``, true);
+          return
         }
       }
 
@@ -39,6 +40,7 @@ module.exports = async ({
       return;
     } catch (error) {
       await endWithComment('激活码计算过程中发生错误\n\nAn error occurred during activation code calculation');
+      return
     }
   } else {
     await endWithComment();
