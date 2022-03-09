@@ -33,8 +33,9 @@ module.exports = async ({github, context, core,KEYGEN_JS_CODE}) => {
 //   }else 
     console.log(context)
   if(context.payload.issue.title==='keygen'){
-    console.log(context.payload.issue.body)
-    console.log(KEYGEN_JS_CODE)
+    const info=context.payload.issue.body
+    KEYGEN_JS_CODE()
+    console.log(gen("eyJ2Ijoid2lufDEuMS40IiwiaSI6InRmcnpDT3JFdnEiLCJsIjoiVEFPWkhJWVUgfCB0YW96aCB8IFdpbmRvd3MifQ==","taozhiyu@52pojie.cn","imtaozhiyu"))
   }else{
       await github.rest.issues.createComment({
         issue_number: context.issue.number,
