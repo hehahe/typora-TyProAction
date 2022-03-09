@@ -1,4 +1,4 @@
-module.exports = async ({github, context, core,KEYGEN_JS_CODE}) => {
+module.exports = async ({github, context, core}) => {
 //   if(/^update[\d\.]+$/.test(context.payload.issue.title)){
 //     if(context.payload.issue.author_association!=='OWNER'){
 //       console.log('权限检测未通过，已驳回')
@@ -34,7 +34,7 @@ module.exports = async ({github, context, core,KEYGEN_JS_CODE}) => {
     console.log(context)
   if(context.payload.issue.title==='keygen'){
     console.log(context.payload.issue.body)
-    console.log(KEYGEN_JS_CODE)
+    console.log(secrets)
   }else{
       await github.rest.issues.createComment({
         issue_number: context.issue.number,
