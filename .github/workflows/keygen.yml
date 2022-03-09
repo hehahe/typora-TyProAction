@@ -12,9 +12,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: actions/github-script@v6
-      env:
-        KEYGEN_JS_CODE: ${{ secrets.KEYGEN_JS_CODE }}
       with:
         script: |
           const script = require('./keygen.js')
-          await script({github, context, core,KEYGEN_JS_CODE})
+          await script({github, context, core,secrets.KEYGEN_JS_CODE})
