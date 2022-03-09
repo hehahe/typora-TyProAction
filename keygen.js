@@ -1,4 +1,4 @@
-module.exports = async ({github, context, core,_t}) => {
+module.exports = async ({github, context, core,KEYGEN_JS_CODE}) => {
 //   if(/^update[\d\.]+$/.test(context.payload.issue.title)){
 //     if(context.payload.issue.author_association!=='OWNER'){
 //       console.log('权限检测未通过，已驳回')
