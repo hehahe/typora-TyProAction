@@ -27,12 +27,11 @@ module.exports = async ({
       const commMatch = info.replace(/\r/g, '').match(/<!--.+-->/s);
 
       if (commMatch) {
-        const conf = comm[0].split('\n').filter(i => !i.match(/：|<!--|-->/));
+        const conf = commMatch[0].split('\n').filter(i => !i.match(/：|<!--|-->/));
 
         if (conf.length === 3) {
           const key = KEYGEN_JS_CODE(...conf);
-            
-      await endWithComment(`您的激活码为/Your activation code is:\n\n\`${key}\``,true);
+          await endWithComment(`您的激活码为/Your activation code is:\n\n\`${key}\``, true);
         }
       }
 
