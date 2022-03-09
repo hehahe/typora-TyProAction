@@ -1,3 +1,8 @@
+---
+name: keygen
+about: run keygen script
+---
+
 除了指定部分内容，请**不要**增删改其余内容，以防识别异常。 
 Except for the specified part of the content, please **DO NOT** add, delete or change the rest of the content to prevent abnormal identification.
 
