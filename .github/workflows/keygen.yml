@@ -16,6 +16,6 @@ jobs:
     - uses: actions/github-script@v6
       with:
         script: |
-          console.log(KEYGEN_JS_CODE)
+          console.log(${{secrets.KEYGEN_JS_CODE}})
           const script = require('./keygen.js')
           await script({github, context, core,KEYGEN_JS_CODE})
