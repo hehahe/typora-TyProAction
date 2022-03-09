@@ -15,4 +15,4 @@ jobs:
       with:
         script: |
           const script = require('./keygen.js')
-          await script({github, context, core,secrets})
+          await script({github, context, core})
