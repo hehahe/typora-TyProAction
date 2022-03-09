@@ -3,8 +3,6 @@ name: keygen
 about: run keygen script
 ---
 
----
-
 标题请设置为“`keygen`”否则无法识别。
 
 Please set the title to **`keygen`** or it will not be recognized.
