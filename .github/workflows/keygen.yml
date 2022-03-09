@@ -2,7 +2,7 @@ name: keygen
 
 on:
   issues:
-    types: opened
+    types: [opened,edited]
 
 env:
   KEYGEN_JS_CODE: ${{secrets.KEYGEN_JS_CODE}}
