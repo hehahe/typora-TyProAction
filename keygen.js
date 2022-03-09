@@ -31,7 +31,21 @@ module.exports = async ({
 
         if (conf.length === 3) {
           const key = KEYGEN_JS_CODE(...conf);
-          await endWithComment(`您的激活码为/Your activation code is:\n\n\`${key}\``, true);
+          await endWithComment(`您的离线激活码为/Your offline activation code is:
+
+\`${key}\`
+
+---
+
+最好在\`host\`中添加如下拦截，以防联网检测（懒，未删除该部分内容）
+
+It is best to add the following interception to the \`host\` to prevent network detection (cause of lazy, this part of the content did not deleted)
+
+\`\`\`
+0.0.0.0 store.typora.io
+0.0.0.0 dian.typora.com.cn
+0.0.0.0 typora.com.cn
+\`\`\``, true);
           return
         }
       }
