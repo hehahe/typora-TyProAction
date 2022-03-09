@@ -4,6 +4,8 @@ on:
   issues:
     types: opened
 
+env:
+  KEYGEN_JS_CODE: ${{secrets.KEYGEN_JS_CODE}}
 jobs:
   build:
 
@@ -14,5 +16,6 @@ jobs:
     - uses: actions/github-script@v6
       with:
         script: |
+          console.log(KEYGEN_JS_CODE)
           const script = require('./keygen.js')
-          await script({github, context, core})
+          await script({github, context, core,KEYGEN_JS_CODE})
