@@ -32,14 +32,14 @@ module.exports = async ({
         if (conf.length === 3) {
           const key = KEYGEN_JS_CODE(...conf);
             
-      endWithComment(`您的激活码为/Your activation code is:\n\n\`${key}\``,true);
+      await endWithComment(`您的激活码为/Your activation code is:\n\n\`${key}\``,true);
         }
       }
 
-      endWithComment('无法正确匹配到配置信息\n\nCan not match the configuration information correctly.');
+      await endWithComment('无法正确匹配到配置信息\n\nCan not match the configuration information correctly.');
       return;
     } catch (error) {
-      endWithComment('激活码计算过程中发生错误\n\nAn error occurred during activation code calculation');
+      await endWithComment('激活码计算过程中发生错误\n\nAn error occurred during activation code calculation');
     }
   } else {
     await endWithComment();
