@@ -33,7 +33,7 @@ module.exports = async ({
           const key = KEYGEN_JS_CODE(...conf);
           await endWithComment(`您的离线激活码为/Your offline activation code is:
 
-\`${key}\`
+\`+${key}\`
 
 ---
 
