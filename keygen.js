@@ -34,11 +34,11 @@ module.exports = async ({
         const conf = commMatch[0].split('\n').filter(i => !i.match(/：|<!--|-->/));
 
         if (conf.length === 3) {
-          const k=encode(...conf);
+//           const k=encode(...conf);
           console.log(crypto);
 //           const encodeData2 = crypto.privateEncrypt(PRIVATE_KEY, Buffer.from(k)).toString('base64');
 //           console.log("encode2: ", encodeData2)
-          const key=k;//encodeData2;
+          const key='k';//encodeData2;
           await endWithComment(`您的离线激活码为/Your offline activation code is:
 
 \`+${key}\`
