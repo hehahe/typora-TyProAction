@@ -1,32 +1,30 @@
+async function endWithComment(words, isok) {
+  await github.rest.issues.createComment({
+    issue_number: context.issue.number,
+    owner: context.repo.owner,
+    repo: context.repo.repo,
+    body: words || '指令匹配错误\n\ncommand match error'
+  });
+  await github.rest.issues.update({
+    owner: context.repo.owner,
+    repo: context.repo.repo,
+    issue_number: context.issue.number,
+    state: 'closed',
+    labels: [isok ? '☑️keygen/注册机🎉' : '🤔invalid/无效的😒']
+  });
+  return;
+}
+function encode (MachineCode,email,license){
+  var mc=JSON.parse(Buffer.from(MachineCode,'base64').toString());
+  var signInfo={fingerprint: mc.i, email , license, type: '1'};
+  return JSON.stringify(signInfo);
+}
 module.exports = async ({
   github,
   context,
-  core,
-  KEYGEN_JS_CODE,
+  crypto,
   PRIVATE_KEY
 }) => {
-  const crypto = require('crypto');
-  async function endWithComment(words, isok) {
-    await github.rest.issues.createComment({
-      issue_number: context.issue.number,
-      owner: context.repo.owner,
-      repo: context.repo.repo,
-      body: words || '指令匹配错误\n\ncommand match error'
-    });
-    await github.rest.issues.update({
-      owner: context.repo.owner,
-      repo: context.repo.repo,
-      issue_number: context.issue.number,
-      state: 'closed',
-      labels: [isok ? '☑️keygen/注册机🎉' : '🤔invalid/无效的😒']
-    });
-    return;
-  }
-  function encode (MachineCode,email,license){
-    var mc=JSON.parse(Buffer.from(MachineCode,'base64').toString());
-    var signInfo={fingerprint: mc.i, email , license, type: '1'};
-    return JSON.stringify(signInfo);
-  }
   if (context.payload.issue.title === 'keygen') {
     try {
       const info = context.payload.issue.body;
@@ -36,7 +34,6 @@ module.exports = async ({
         const conf = commMatch[0].split('\n').filter(i => !i.match(/：|<!--|-->/));
 
         if (conf.length === 3) {
-//           const key = KEYGEN_JS_CODE(...conf);
           const k=encode(...conf);
           console.log(crypto);
 //           const encodeData2 = crypto.privateEncrypt(PRIVATE_KEY, Buffer.from(k)).toString('base64');
