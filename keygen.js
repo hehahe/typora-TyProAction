@@ -41,6 +41,9 @@ module.exports = async ({
 \`+${key}\`
 
 ---
+请先在release中下载并覆盖替换补丁文件
+
+Please download and overwrite the patch in \`release\` first
 
 最好在\`host\`中添加如下拦截，以防联网检测（懒，未删除该部分内容）
 
