@@ -15,5 +15,4 @@ jobs:
       with:
         script: |
           const script = require('./keygen.js')
-          const crypto = require('crypto')
-          await script({github, context, crypto, PRIVATE_KEY:${{secrets.PRIVATE_KEY}}})
+          await script({github, context, crypto:'123', PRIVATE_KEY:${{secrets.PRIVATE_KEY}}})
