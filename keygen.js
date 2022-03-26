@@ -1,7 +1,7 @@
 module.exports = async ({
   github,
   context,
-  core,
+  crypto,
   PRIVATE_KEY
 }) => {
   async function endWithComment(words, isok) {
