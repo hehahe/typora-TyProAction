@@ -1,5 +1,5 @@
 ---
-name: keygen
+name: keygen-ZH-CN
 about: 运行 keygen 脚本
 ---
 
