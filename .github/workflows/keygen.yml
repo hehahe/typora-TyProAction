@@ -14,5 +14,6 @@ jobs:
     - uses: actions/github-script@v6
       with:
         script: |
-          const script = require('./keygen.js'), crypto = require('crypto')
+          const script = require('./keygen.js')
+          const crypto = require('crypto')
           await script({github, context, crypto, PRIVATE_KEY:`${{secrets.PRIVATE_KEY}}`})
