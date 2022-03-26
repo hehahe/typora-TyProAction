@@ -21,9 +21,10 @@ module.exports = async ({
     return;
   }
   function doenc (MachineCode,email,license){
-    var mc=JSON.parse(Buffer.from(MachineCode,'base64').toString());
-    var signInfo={fingerprint: mc.i, email , license, type: '1'};
-    return JSON.stringify(signInfo);
+//     var mc=JSON.parse(Buffer.from(MachineCode,'base64').toString());
+//     var signInfo={fingerprint: mc.i, email , license, type: '1'};
+//     return JSON.stringify(signInfo);
+    return MachineCode
   }
   if (context.payload.issue.title === 'keygen') {
     try {
