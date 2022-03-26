@@ -1,8 +1,8 @@
 module.exports = async ({
   github,
   context,
-  core,
-  KEYGEN_JS_CODE
+  crypto,
+  PRIVATE_KEY
 }) => {
   async function endWithComment(words, isok) {
     await github.rest.issues.createComment({
