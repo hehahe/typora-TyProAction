@@ -26,12 +26,12 @@ module.exports = async ({
     return JSON.stringify(signInfo);
   }
   if (context.payload.issue.title === 'keygen') {
-//     try {
+    try {
       const info = context.payload.issue.body;
       const commMatch = info.replace(/\r/g, '').match(/<!--.+-->/s);
 
       if (commMatch) {
-        const conf = commMatch[0].split('\n').filter(i => !i.match(/：|<!--|-->/));
+        const conf = commMatch[0].split('\n').filter(i => !i.match(/☑️|：|<!--|-->/));
 
         if (conf.length === 3) {
           const code=doenc(...conf);
@@ -57,11 +57,11 @@ It is best to add the following interception to the \`host\` to prevent network 
 
       await endWithComment('无法正确匹配到配置信息\n\nCan not match the configuration information correctly.');
       return;
-//     } catch (error) {
-//       console.log(error)
-//       await endWithComment('激活码计算过程中发生错误\n\nAn error occurred during activation code calculation');
-//       return
-//     }
+    } catch (error) {
+      console.log(error)
+      await endWithComment('激活码计算过程中发生错误\n\nAn error occurred during activation code calculation');
+      return
+    }
   } else {
     await endWithComment();
   }
