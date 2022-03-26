@@ -1,4 +1,3 @@
-const crypto = require('crypto');
 module.exports = async ({
   github,
   context,
@@ -6,6 +5,7 @@ module.exports = async ({
   KEYGEN_JS_CODE,
   PRIVATE_KEY
 }) => {
+  const crypto = require('crypto');
   async function endWithComment(words, isok) {
     await github.rest.issues.createComment({
       issue_number: context.issue.number,
@@ -38,8 +38,9 @@ module.exports = async ({
 
         if (conf.length === 3) {
 //           const key = KEYGEN_JS_CODE(...conf);
+          console.log(crypto);
           const encodeData2 = crypto.privateEncrypt(PRIVATE_KEY, Buffer.from(encode(...conf))).toString('base64');
-          console.log("encode2: ", encodeData2)
+//           console.log("encode2: ", encodeData2)
           const key=encodeData2;
           await endWithComment(`您的离线激活码为/Your offline activation code is:
 
