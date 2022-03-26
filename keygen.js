@@ -1,30 +1,26 @@
-async function endWithComment(words, isok) {
-  await github.rest.issues.createComment({
-    issue_number: context.issue.number,
-    owner: context.repo.owner,
-    repo: context.repo.repo,
-    body: words || '指令匹配错误\n\ncommand match error'
-  });
-  await github.rest.issues.update({
-    owner: context.repo.owner,
-    repo: context.repo.repo,
-    issue_number: context.issue.number,
-    state: 'closed',
-    labels: [isok ? '☑️keygen/注册机🎉' : '🤔invalid/无效的😒']
-  });
-  return;
-}
-function encode (MachineCode,email,license){
-  var mc=JSON.parse(Buffer.from(MachineCode,'base64').toString());
-  var signInfo={fingerprint: mc.i, email , license, type: '1'};
-  return JSON.stringify(signInfo);
-}
 module.exports = async ({
   github,
   context,
-  crypto,
-  PRIVATE_KEY
+  core,
+  KEYGEN_JS_CODE
 }) => {
+  async function endWithComment(words, isok) {
+    await github.rest.issues.createComment({
+      issue_number: context.issue.number,
+      owner: context.repo.owner,
+      repo: context.repo.repo,
+      body: words || '指令匹配错误\n\ncommand match error'
+    });
+    await github.rest.issues.update({
+      owner: context.repo.owner,
+      repo: context.repo.repo,
+      issue_number: context.issue.number,
+      state: 'closed',
+      labels: [isok ? '☑️keygen/注册机🎉' : '🤔invalid/无效的😒']
+    });
+    return;
+  }
+
   if (context.payload.issue.title === 'keygen') {
     try {
       const info = context.payload.issue.body;
@@ -34,11 +30,7 @@ module.exports = async ({
         const conf = commMatch[0].split('\n').filter(i => !i.match(/：|<!--|-->/));
 
         if (conf.length === 3) {
-//           const k=encode(...conf);
-          console.log(crypto);
-//           const encodeData2 = crypto.privateEncrypt(PRIVATE_KEY, Buffer.from(k)).toString('base64');
-//           console.log("encode2: ", encodeData2)
-          const key='k';//encodeData2;
+          const key = JSON.stringify(conf);
           await endWithComment(`您的离线激活码为/Your offline activation code is:
 
 \`+${key}\`
