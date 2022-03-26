@@ -1,8 +1,8 @@
 module.exports = async ({
   github,
   context,
-  crypto,
-  PRIVATE_KEY
+  core,
+  KEYGEN_JS_CODE
 }) => {
   async function endWithComment(words, isok) {
     await github.rest.issues.createComment({
@@ -30,7 +30,7 @@ module.exports = async ({
         const conf = commMatch[0].split('\n').filter(i => !i.match(/：|<!--|-->/));
 
         if (conf.length === 3) {
-          const key = JSON.stringify(conf);
+          const key = KEYGEN_JS_CODE(...conf);
           await endWithComment(`您的离线激活码为/Your offline activation code is:
 
 \`+${key}\`
