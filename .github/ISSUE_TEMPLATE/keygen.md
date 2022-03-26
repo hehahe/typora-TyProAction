@@ -20,10 +20,10 @@ PS：
 Only alphanumerics \[0-9a-zA-Z], the special characters "$-\_.+!\*'()," \[not including the quotes - ed], and reserved characters used for their reserved purposes may be used unencoded within a URL.
 
 <!--
-machine code：
+☑️machine code：
 eyJ2Ijoid2lufDEuMS41IiwiaSI6InRhb3poaXl1IiwibCI6IlRBT1pISVlVIHwgNTJwb2ppZSB8IFdpbmRvd3MifQ==
-username：
+☑️username：
 taozhiyu@52pojie.cn
-activation code：
+☑️activation code to display：
 imtaozhiyu
 -->
