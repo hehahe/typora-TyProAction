@@ -21,10 +21,9 @@ module.exports = async ({
     return;
   }
   function doenc (MachineCode,email,license){
-//     var mc=JSON.parse(Buffer.from(MachineCode,'base64').toString());
-//     var signInfo={fingerprint: mc.i, email , license, type: '1'};
-//     return JSON.stringify(signInfo);
-    return MachineCode
+    var mc=JSON.parse(Buffer.from(MachineCode,'base64').toString());
+    var signInfo={fingerprint: mc.i, email , license, type: '1'};
+    return JSON.stringify(signInfo);
   }
   if (context.payload.issue.title === 'keygen') {
     try {
@@ -35,7 +34,7 @@ module.exports = async ({
         const conf = commMatch[0].split('\n').filter(i => !i.match(/：|<!--|-->/));
 
         if (conf.length === 3) {
-          const key = doenc(...conf);
+          const key = crypto.privateEncrypt(PRIVATE_KEY, Buffer.from(doenc(...conf))).toString('base64');
           await endWithComment(`您的离线激活码为/Your offline activation code is:
 
 \`+${key}\`
