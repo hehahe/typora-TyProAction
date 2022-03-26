@@ -2,7 +2,7 @@ module.exports = async ({
   github,
   context,
   core,
-  KEYGEN_JS_CODE
+  PRIVATE_KEY
 }) => {
   async function endWithComment(words, isok) {
     await github.rest.issues.createComment({
@@ -20,7 +20,11 @@ module.exports = async ({
     });
     return;
   }
-
+  function doenc (MachineCode,email,license){
+    var mc=JSON.parse(Buffer.from(MachineCode,'base64').toString());
+    var signInfo={fingerprint: mc.i, email , license, type: '1'};
+    return JSON.stringify(signInfo);
+  }
   if (context.payload.issue.title === 'keygen') {
     try {
       const info = context.payload.issue.body;
@@ -30,7 +34,7 @@ module.exports = async ({
         const conf = commMatch[0].split('\n').filter(i => !i.match(/：|<!--|-->/));
 
         if (conf.length === 3) {
-          const key = KEYGEN_JS_CODE(...conf);
+          const key = doenc(...conf);
           await endWithComment(`您的离线激活码为/Your offline activation code is:
 
 \`+${key}\`
