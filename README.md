@@ -26,3 +26,12 @@ If the image above failed to load cause of some irresistible reasons, try [【th
 ## Who has starred
 
 [![Stargazers repo roster for @taozhiyu/TyProAction](https://reporoster.com/stars/dark/taozhiyu/TyProAction)](https://github.com/taozhiyu/TyProAction/stargazers)
+
+
+## Who has forked
+
+[![Forkers repo roster for @taozhiyu/TyProAction](https://reporoster.com/forks/dark/taozhiyu/TyProAction)](https://github.com/taozhiyu/TyProAction/network/members)
+
+Actually I don't know why you fork this repository, the key information (mainly the private key) is stored in the secret, so it can only work in my issue with bot.
+
+Anyway, thank you for your support.
