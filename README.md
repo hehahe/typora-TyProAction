@@ -7,7 +7,7 @@
 # TyProAction
 A Github Action about Ty (Pro Version)
 
-## What is Ty
+## What is TyPro
 Maybe you can search Typro in search engine, such as google, baidu, Yandex etc.
 Maybe you cannot find what TyPro is, but you might find out some similar software, website or some other useful things.
 :-)
