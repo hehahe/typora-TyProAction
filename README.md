@@ -9,7 +9,7 @@ A Github Action about Ty (Pro Version)
 
 ## What is Ty
 Maybe you can search Typro in search engine, such as google, baidu, Yandex etc.
-Maybe you cannot finde what TyPro is, but you might find out some similar software, website or some other useful things.
+Maybe you cannot find what TyPro is, but you might find out some similar software, website or some other useful things.
 :-)
 
 ## How to use
