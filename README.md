@@ -5,7 +5,11 @@
 |  😎最新更新版本🥳 | [![](https://img.shields.io/github/v/release/taozhiyu/TyProAction?label=latest%20supported%20version&logo=windows&style=flat-square)](https://github.com/taozhiyu/TyProAction/releases/latest)  |
 
 # TyProAction
-An Attempt for Github Action
+A Github Action about Ty (Pro Version)
+
+## What is Ty
+May be you can search Typro in search engine, such as google, baidu, Yandex etc. , maybe you cannot finde what TyPro is, but maybe you can find some similar software, website or some other useful things.
+:-)
 
 ## How to use
 
