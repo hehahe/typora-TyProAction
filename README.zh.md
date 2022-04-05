@@ -4,7 +4,7 @@
 |  🎉成功生成个数🎉 | [![](https://img.shields.io/github/issues-closed-raw/taozhiyu/TyProAction/%E2%98%91%EF%B8%8Fkeygen/%E6%B3%A8%E5%86%8C%E6%9C%BA%F0%9F%8E%89?color=5cb85c&label=%F0%9F%8E%89numbers%20of%20successful%20builds%F0%9F%8E%89&logo=github&style=flat-square)](https://github.com/taozhiyu/TyProAction/issues?q=label%3A%E2%98%91%EF%B8%8Fkeygen%2F%E6%B3%A8%E5%86%8C%E6%9C%BA%F0%9F%8E%89) |
 |  😎最新更新版本🥳 | [![](https://img.shields.io/github/v/release/taozhiyu/TyProAction?label=latest%20supported%20version&logo=windows&style=flat-square)](https://github.com/taozhiyu/TyProAction/releases/latest)  |
 
-[[this](./index.md)] link for **English speaker**
+[[this](./README.md)] link for **English speaker**
 
 # TyProAction
 关于 Ty（专业版）的 Github Action
