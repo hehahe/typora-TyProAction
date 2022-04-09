@@ -46,4 +46,4 @@ Anyway, thank you for your support.
 
 ## Stargazers over time
 
-[![Stargazers over time](https://starchart.cc/taozhiyu/TyProAction.svg)](https://starchart.cc/taozhiyu/TyProAction)
+![Stargazers over time](https://starchart.cc/taozhiyu/TyProAction.svg)
