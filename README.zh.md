@@ -47,4 +47,4 @@
 
 ## 关注者变化
 
-[![Stargazers over time](https://starchart.cc/taozhiyu/TyProAction.svg)](https://starchart.cc/taozhiyu/TyProAction)
+![Stargazers over time](https://starchart.cc/taozhiyu/TyProAction.svg)
