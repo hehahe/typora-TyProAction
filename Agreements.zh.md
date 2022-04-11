@@ -1,6 +1,6 @@
 # 用户许可协议
 
-visit English version [**HERE**](license.md)
+For English version visit [**HERE**](Agreements.md)
 
 ## 1. 免责声明
 
