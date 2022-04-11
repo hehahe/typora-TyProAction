@@ -1,6 +1,6 @@
 ## User License Agreement
 
-中文说明见[【这里】](License.zh.md)
+中文说明见[【这里】](Agreements.zh.md)
 
 ## 1. disclaimer
 
