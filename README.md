@@ -15,13 +15,15 @@ Maybe you cannot find what TyPro is, but you might find out some similar softwar
 :-)
 
 ## How to use
+Our [Agreements](Agreements.md) `must` be consulted before use!
+
+Continued using means you are in compliance with our agreements.
 
 1. Install the corresponding version TyProAction software
 2. Download the attached zip file
 3. unzip and move it to {software-root-dir}\resources
 4. Use the keygen template to initiate a new issue
 5. enjoy it
-
 
 ## When you use
 
