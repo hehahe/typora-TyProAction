@@ -19,6 +19,10 @@
 
 ## 如何使用
 
+使用前`必须`查阅我们的[协议](Agreements.md)!
+
+继续使用则表示您遵守上述协议。
+
 1. 安装对应版本的TyProAction软件
 2. 下载附件的zip文件
 3. 解压并移动到 {software-root-dir}\resources
