@@ -16,7 +16,7 @@ module.exports = async ({ github, context }) => {
 
     const exePath = path.resolve('Typro-update-V' + latestVersion + '.exe');
     const win64ConfigPath = path.resolve('config/releases/windows_64.json');
-    const asarZip = path.resolve('app-file-V' + latestVersion + '.zip');
+    const asarZip = path.resolve('../app-file-V' + latestVersion + '.zip');
 
     //发布新release
     const releaseInfo = await github.rest.repos.createRelease({
