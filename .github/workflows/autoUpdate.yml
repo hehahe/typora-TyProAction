@@ -1,7 +1,8 @@
 name: check update
 on:
-  watch:
-    types: [started]
+  workflow_dispatch:
+  schedule:
+  - cron: '0 0 */5 * *'
 jobs:
   check-update:
     name: check update
