@@ -62,4 +62,8 @@ module.exports = async ({ github, context }) => {
     //删除缓存文件
     fs.unlinkSync(exePath);
     fs.unlinkSync(asarZip);
+    
+    //手动（其实是自动）更新CDN
+    console.log(await github.request("GET https://purge.jsdelivr.net/gh/taozhiyu/TyProAction@main/config/releases/windows_64.json"))
+    
 };
