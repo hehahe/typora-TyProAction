@@ -1,8 +1,10 @@
 |  信息 | 状态 |
 |:----:|:----:|
-|  🤔无效指令个数😒 | [![Number of invalid instructions](https://img.shields.io/github/issues-closed-raw/taozhiyu/TyProAction/%F0%9F%A4%94invalid/%E6%97%A0%E6%95%88%E7%9A%84%F0%9F%98%92?color=d9534f&label=%F0%9F%A4%94Number%20of%20invalid%20instructions&logo=github&style=flat-square)](https://github.com/taozhiyu/TyProAction/issues?q=label%3A%F0%9F%A4%94invalid%2F%E6%97%A0%E6%95%88%E7%9A%84%F0%9F%98%92) |
-|  🎉成功生成个数🎉 | [![Numbers of successful builds](https://img.shields.io/github/issues-closed-raw/taozhiyu/TyProAction/%E2%98%91%EF%B8%8Fkeygen/%E6%B3%A8%E5%86%8C%E6%9C%BA%F0%9F%8E%89?color=5cb85c&label=%F0%9F%8E%89Numbers%20of%20successful%20builds&logo=github&style=flat-square)](https://github.com/taozhiyu/TyProAction/issues?q=label%3A%E2%98%91%EF%B8%8Fkeygen%2F%E6%B3%A8%E5%86%8C%E6%9C%BA%F0%9F%8E%89) |
-|  😎最新更新版本🥳 | [![Latest supported version](https://img.shields.io/github/v/release/taozhiyu/TyProAction?label=%F0%9F%A5%B3Latest%20supported%20version&logo=windows&style=flat-square)](https://github.com/taozhiyu/TyProAction/releases/latest) |
+|  🤔无效指令个数😒 | [![Number of invalid instructions](https://img.shields.io/github/issues-closed-raw/taozhiyu/TyProAction/%F0%9F%A4%94invalid/%E6%97%A0%E6%95%88%E7%9A%84%F0%9F%98%92?color=d9534f&label=%F0%9F%A4%94invalid%20instructions&logo=github&style=flat-square)](https://github.com/taozhiyu/TyProAction/issues?q=label%3A%F0%9F%A4%94invalid%2F%E6%97%A0%E6%95%88%E7%9A%84%F0%9F%98%92) |
+|  🎉成功生成个数🎉 | [![Numbers of successful builds](https://img.shields.io/github/issues-closed-raw/taozhiyu/TyProAction/%E2%98%91%EF%B8%8Fkeygen/%E6%B3%A8%E5%86%8C%E6%9C%BA%F0%9F%8E%89?color=5cb85c&label=%F0%9F%8E%89successful%20builds&logo=github&style=flat-square)](https://github.com/taozhiyu/TyProAction/issues?q=label%3A%E2%98%91%EF%B8%8Fkeygen%2F%E6%B3%A8%E5%86%8C%E6%9C%BA%F0%9F%8E%89) |
+|  😏附件总下载量😙 |![GitHub all releases](https://img.shields.io/github/downloads/taozhiyu/TyProAction/total?label=%F0%9F%A4%A9Total%20downloads&color=5319E7&logo=github&style=flat-square)|
+|  🔧自动更新状态⚙️ |![GitHub Workflow Status](https://img.shields.io/github/workflow/status/taozhiyu/TyProAction/check%20update?label=%F0%9F%94%A7check%20update&logo=github&style=flat-square) |
+|  😎最新更新版本🥳 | [![Latest supported version](https://img.shields.io/github/v/release/taozhiyu/TyProAction?label=%F0%9F%A5%B3Latest%20version&logo=windows&style=flat-square)](https://github.com/taozhiyu/TyProAction/releases/latest) |
 
 `中文文档`请见：[【这里】](./README.zh.md)
 
