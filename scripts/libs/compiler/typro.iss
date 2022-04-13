@@ -1,5 +1,5 @@
 #define MyAppName "Typro"
-#define MyAppVersion "1.2.3"
+#define MyAppVersion "1.2.4"
 #define MyAppPublisher "taozhiyu studio"
 #define MyAppURL "https://taozhiyu.github.io/TyProAction"
 #define MyAppExeName "Typora.exe"
@@ -38,7 +38,7 @@ Name: "chinesesimp"; MessagesFile: ".\Languages\ChineseSimp.isl"
 
 [Files]
 Source: ".\res\*"; DestDir: "{tmp}"; Flags: dontcopy solidbreak ; Attribs: hidden system
-Source: "..\..\packages\1.2.3\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\..\packages\1.2.4\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
