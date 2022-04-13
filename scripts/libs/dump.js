@@ -18,8 +18,8 @@ VwIDAQAB
 `)
         //去验证
         .replace(/https:\/\/store\.typora\.io|https:\/\/dian\.typora\.com\.cn|https:\/\/typora\.com\.cn\/store\//g,'')
-        //更改更新位置到本库
-        .replace(/[^'"`]+releases\/windows_[^'"`]+/,a=>a.replace(/https?:\/\/[^\/]+/,"https://cdn.jsdelivr.net/gh/taozhiyu/TyProAction@main/config"))
+        //更改更新位置到本库(判断是否镜像)
+        .replace(/[^'"`]+releases\/windows_[^'"`]+/,a=>a.replace(/\{[^\}]+\}/,b=>`{${b.match(/\w+/)+`==="typoraio.cn"?"cdn.jsdelivr.net/gh/taozhiyu/TyProAction@main/config":"raw.githubusercontent.com/taozhiyu/TyProAction/main/config"`}}`))
     fs.writeFileSync(path.basename(filename), newcontent);
     console.log("Inject Success");
     process.exit(0);
