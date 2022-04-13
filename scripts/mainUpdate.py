@@ -102,9 +102,9 @@ def test_inject(version: str):
     # 打包压缩
     pack_asar(appDir, os.path.join(appDir, "../app.asar"))
     # 复制asar文件到根目录
-    shutil.copyfile(os.path.join(appDir, "../app.asar"), os.path.join(rootPath, "../app.asar"))
+    shutil.copyfile(os.path.join(appDir, "../app.asar"), os.path.join(rootPath, "app.asar"))
 
-    zip_file = zipfile.ZipFile(f'../app-file-V{version}.zip','w')
+    zip_file = zipfile.ZipFile(f'app-file-V{version}.zip','w')
     # 把zfile整个目录下所有内容，压缩为new.zip文件
     zip_file.write("app.asar",compress_type=zipfile.ZIP_DEFLATED)
     zip_file.close()
@@ -131,7 +131,7 @@ def test_inject(version: str):
     #删除垃圾
     shutil.rmtree(RETRIEVE_DIR)
     shutil.rmtree(os.path.join(rootPath, "output"))
-    os.remove(os.path.join(rootPath, "../app.asar"))
+    os.remove(os.path.join(rootPath, "app.asar"))
 
 def download_windows(version: str) -> str:
     url = IMAGE_URL + f"/windows/typora-setup-x64-{version}.exe"
