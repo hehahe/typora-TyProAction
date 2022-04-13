@@ -53,10 +53,11 @@ module.exports = async ({ github, context }) => {
     console.log(conf);
     conf.version = latestVersion;
     conf.download = assetInfo.data.browser_download_url;
-    conf.downloadCN = assetInfo.data.browser_download_url.replace(
-        'https://github.com/',
-        'https://download.fastgit.org/'
-    );
+    conf.downloadCN = "https://ghproxy.com/"+assetInfo.data.browser_download_url
+    // .replace(
+    //     'https://github.com/',
+    //     'https://download.fastgit.org/'
+    // );
     fs.writeFileSync(win64ConfigPath, JSON.stringify(conf, '', 4));
 
     //删除缓存文件

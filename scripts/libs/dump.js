@@ -19,7 +19,7 @@ VwIDAQAB
         //去验证
         .replace(/https:\/\/store\.typora\.io|https:\/\/dian\.typora\.com\.cn|https:\/\/typora\.com\.cn\/store\//g,'')
         //更改更新位置到本库(判断是否镜像)
-        .replace(/[^'"`]+releases\/windows_[^'"`]+/,a=>a.replace(/\{[^\}]+\}/,b=>`{${b.match(/\w+/)+`==="typoraio.cn"?"cdn.jsdelivr.net/gh/taozhiyu/TyProAction@main/config":"raw.githubusercontent.com/taozhiyu/TyProAction/main/config"`}}`))
+        .replace(/[^'"`]+releases\/windows_[^'"`]+/,a=>a.replace(/\{[^\}]+\}/,b=>`{${b.match(/\w+/)+`==="typoraio.cn"?"cdn.staticaly.com/gh/taozhiyu/TyProAction/main/config":"raw.githubusercontent.com/taozhiyu/TyProAction/main/config"`}}`))
         //更改安装文件名
         .replace(/ty\u70ora-update-["+\w\.-]+\.exe"/,'Typro-Update-V"+s.data.version+".exe"')
     fs.writeFileSync(path.basename(filename), newcontent);
