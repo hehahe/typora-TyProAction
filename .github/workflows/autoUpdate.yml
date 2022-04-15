@@ -23,12 +23,12 @@ jobs:
           python-version: '3.x'
           cache: 'pip'
           
-      - name: Setup requirements
-      - run: pip install -r scripts/requirements.txt
+#       - name: Setup requirements
+#       - run: pip install -r scripts/requirements.txt
 
-      - name: ${{matrix.check-type}} version check and build
-        id: check_with_python
-        run: python scripts/mainUpdate.py ${{matrix.check-type}}
+#       - name: ${{matrix.check-type}} version check and build
+#         id: check_with_python
+#         run: python scripts/mainUpdate.py ${{matrix.check-type}}
 
 #       - name: ${{matrix.check-type}} upload and generate
 #         if: steps.check_with_python.outputs.update_url == ''
