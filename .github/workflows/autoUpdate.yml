@@ -12,8 +12,8 @@ jobs:
       fail-fast: false
       matrix:
         language: ["python"]
+        python-version: ['3.8', '3.10' ]
 #         check-type: ['standard','dev']
-#         python-version: ['3.8', '3.10']
         
     steps:
       - name: Check out repository code
@@ -22,8 +22,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v3
         with:
-          python-version: '3.8'
-          #${{python-version}}
+          python-version: '${{python-version}}'
 #           "3.x"
           cache: 'pip'
       - name: Display Python version
