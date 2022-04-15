@@ -119,7 +119,7 @@ def download_windows(downloadLink: str):
     if not os.path.exists(os.path.join(RETRIEVE_DIR, version)):
         print("开始解包（静默打包，提速1/6）")
         extractTOOL = os.path.join(rootPath, "libs/innoextract.exe")
-        subprocess.check_call([extractTOOL, fileName, "-s"], cwd=RETRIEVE_DIR)
+        subprocess.check_call([extractTOOL, fileName+".exe", "-s"], cwd=RETRIEVE_DIR)
         os.rename(os.path.join(RETRIEVE_DIR, "app"),
                   os.path.join(RETRIEVE_DIR, version))
         print("解包完成")
