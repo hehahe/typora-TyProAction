@@ -55,7 +55,7 @@ def downloadFile(url, filename):
 def buildTyPro(version: str):
     # 解包asar
     rawAsarFile = os.path.join(RETRIEVE_DIR, version, "resources/app.asar")
-    outPutPath = os.path.join(rootPath, "output"+time.time())
+    outPutPath = os.path.join(rootPath, "output"+time.time_ns())
     extractWdec(rawAsarFile, outPutPath)
     DecAppPath = os.path.join(outPutPath, "dec_app")
     # 修改
