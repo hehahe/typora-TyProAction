@@ -8,10 +8,10 @@ jobs:
     name: check update
     runs-on: windows-latest
     timeout-minutes: 5
-#     language: python
     strategy:
       fail-fast: false
       matrix:
+        language: ["python"]
         check-type: ['standard','dev']
     steps:
       - name: Check out repository code
