@@ -11,9 +11,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: ["python"]
         py-version: ['3.8', '3.10' ]
-#         check-type: ['standard','dev']
+        check-type: ['standard','dev']
         
     steps:
       - name: Check out repository code
@@ -23,9 +22,8 @@ jobs:
         uses: actions/setup-python@v3
         with:
           python-version: '${{matrix.py-version}}'
-#           "3.x"
-#           cache: 'pip'
-      - name: Display Python version
+          cache: 'pip'
+      - name: Display Python version and ${{matrix.check-type}} check
         run: python --version
 #       - name: Setup requirements
 #       - run: pip install -r scripts/requirements.txt
