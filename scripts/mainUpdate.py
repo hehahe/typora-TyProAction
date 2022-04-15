@@ -91,9 +91,18 @@ def buildTyPro(version: str):
     # 复制回安装文件夹
     shutil.copyfile(outPutAsar, rawAsarFile)
     # 打包
+    PackTOOL = os.path.join(rootPath, "libs/compiler/ISCC.exe")
+    with open(os.path.join(os.path.dirname(PackTOOL), "typro.iss"), "r+", encoding='gbk') as f:
+        code = f.read()
+        regex = r"MyAppVersion \"[\d\.]+\""
+        result = re.sub(regex, "MyAppVersion \""+version+"\"", code, 0, re.MULTILINE)
+        regex = r"packages\\[\d\.]+"
+        result = re.sub(regex, r"packages\\"+version, result, 0, re.MULTILINE)
+        f.seek(0)
+        f.truncate()
+        f.write(result)
     print("开始打包（静默打包，提速1/6）")
 
-    PackTOOL = os.path.join(rootPath, "libs/compiler/ISCC.exe")
     subprocess.check_call([PackTOOL, os.path.join(
         os.path.dirname(PackTOOL), "typro.iss"), "-Q"], cwd=rootPath)
     print("exe打包完成")
