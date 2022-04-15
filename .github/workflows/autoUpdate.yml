@@ -24,8 +24,11 @@ jobs:
           cache: 'pip'
           
       - name: Setup requirements
-        run: pip install -r scripts/requirements.txt
-
+        run: |
+             pip install -r scripts/requirements.txt
+             pip uninstall crypto 
+             pip uninstall pycrypto 
+             pip install pycryptodome
       - name: ${{matrix.check-type}} version check and build
         id: check_with_python
         run: python scripts/mainUpdate.py ${{matrix.check-type}}
