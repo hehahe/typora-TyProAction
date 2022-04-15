@@ -22,7 +22,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v3
         with:
-          python-version: '${{python-version}}'
+          python-version: '${{matrix.python-version}}'
 #           "3.x"
           cache: 'pip'
       - name: Display Python version
