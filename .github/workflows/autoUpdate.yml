@@ -11,7 +11,6 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        py-version: ['3.8', '3.10' ]
         check-type: ['standard','dev']
         
     steps:
@@ -21,34 +20,33 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v3
         with:
-          python-version: '${{matrix.py-version}}'
+          python-version: '3.x'
           cache: 'pip'
-      - name: Display Python version and ${{matrix.check-type}} check
-        run: python --version
-#       - name: Setup requirements
-#       - run: pip install -r scripts/requirements.txt
+          
+      - name: Setup requirements
+      - run: pip install -r scripts/requirements.txt
 
-#       - name: (${{matrix.check-type}})check and build new version
-#         id: check-with-python
-#         run: python scripts/mainUpdate.py ${{matrix.check-type}}
+      - name: ${{matrix.check-type}} version check and build
+        id: check-with-python
+        run: python scripts/mainUpdate.py ${{matrix.check-type}}
 
-#       - name: (${{matrix.check-type}}) upload and generate
-#         if: steps.check-with-python.outputs.update_url == ''
-#         id: update-with-node
-#         uses: actions/github-script@v6
-#         with:
-#           script: |
-#             const script = require('./scripts/update.js')
-#             await script({
-#               github,
-#               context,
-#               core,
-#               checkType:${{matrix.check-type}},
-#               update_version:${{steps.check-with-python.outputs.update_version}}
-#             })
-# 
-#       - name: git push
-#         uses: stefanzweifel/git-auto-commit-action@v4
-#         if: steps.check-with-python.outputs.update_url == ''
-#         with:
-#           commit_message: ${{steps.update-with-node.outputs.commit_message}}
+      - name: ${{matrix.check-type}} upload and generate
+        if: steps.check-with-python.outputs.update_url == ''
+        id: update-with-node
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const script = require('./scripts/update.js')
+            await script({
+              github,
+              context,
+              core,
+              checkType:${{matrix.check-type}},
+              update_version:${{steps.check-with-python.outputs.update_version}}
+            })
+
+      - name: git push
+        uses: stefanzweifel/git-auto-commit-action@v4
+        if: steps.check-with-python.outputs.update_url == ''
+        with:
+          commit_message: ${{steps.update-with-node.outputs.commit_message}}
