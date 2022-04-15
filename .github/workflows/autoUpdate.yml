@@ -8,7 +8,7 @@ jobs:
     name: check update
     runs-on: windows-latest
     timeout-minutes: 5
-    language: python
+#     language: python
     strategy:
       fail-fast: false
       matrix:
