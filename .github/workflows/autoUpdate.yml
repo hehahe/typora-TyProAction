@@ -9,7 +9,7 @@ jobs:
     runs-on: windows-latest
     timeout-minutes: 5
     strategy:
-      fail-fast: false
+#       fail-fast: false
       matrix:
         language: ["python"]
 #         check-type: ['standard','dev']
