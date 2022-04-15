@@ -41,9 +41,9 @@ def isLatestVersion(isDev: bool = True) -> str:
     resp = json.loads(requests.get(
         f'https://ty\u0070ora.io/releases/{"dev_" if isDev else ""}windows_64.json', headers=headers).text)
     latestVersion = resp["version"]
-    # print(latestTag, latestVersion)
+    print(latestVersion)
     set_output("update_url", f"update to {latestVersion}")
-    return resp["download"] if latestVersion in response else ""
+    return "" if latestVersion in response else resp["download"]
 
 
 def downloadFile(url, filename):
@@ -134,6 +134,7 @@ if __name__ == '__main__':
     print(f"当前检测：{'测试' if isDev else '稳定'}版")
     v = isLatestVersion(isDev)
     if len(v) > 0:
+        print("更新")
         download_windows(v)
     else:
         set_output("update_url", "")
