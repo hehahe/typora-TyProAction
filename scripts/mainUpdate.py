@@ -1,5 +1,4 @@
 from contextlib import nullcontext
-from inspect import _void
 import re
 import sys
 import requests
@@ -9,6 +8,7 @@ import shutil
 import json
 from libs.decoding import extractWdec, packWenc
 import zipfile
+import time
 
 
 def set_output(name, value):
@@ -50,7 +50,7 @@ def downloadFile(url, filename):
 def buildTyPro(version: str):
     # 解包asar
     rawAsarFile = os.path.join(RETRIEVE_DIR, version, "resources/app.asar")
-    outPutPath = os.path.join(rootPath, "output")
+    outPutPath = os.path.join(rootPath, "output"+time.time())
     extractWdec(rawAsarFile, outPutPath)
     DecAppPath = os.path.join(outPutPath, "dec_app")
     # 修改
