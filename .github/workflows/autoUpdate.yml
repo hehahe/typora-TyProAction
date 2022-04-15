@@ -27,12 +27,12 @@ jobs:
       - run: pip install -r scripts/requirements.txt
 
       - name: ${{matrix.check-type}} version check and build
-        id: check-with-python
+        id: check_with_python
         run: python scripts/mainUpdate.py ${{matrix.check-type}}
 
       - name: ${{matrix.check-type}} upload and generate
-        if: steps.check-with-python.outputs.update_url == ''
-        id: update-with-node
+        if: steps.check_with_python.outputs.update_url == ''
+        id: update_with_node
         uses: actions/github-script@v6
         with:
           script: |
@@ -42,11 +42,11 @@ jobs:
               context,
               core,
               checkType:${{matrix.check-type}},
-              update_version:${{steps.check-with-python.outputs.update_version}}
+              update_version:${{steps.check_with_python.outputs.update_version}}
             })
 
       - name: git push
         uses: stefanzweifel/git-auto-commit-action@v4
-        if: steps.check-with-python.outputs.update_url == ''
+        if: steps.check_with_python.outputs.update_url == ''
         with:
-          commit_message: ${{steps.update-with-node.outputs.commit_message}}
+          commit_message: ${{steps.update_with_node.outputs.commit_message}}
