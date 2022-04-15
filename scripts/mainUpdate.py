@@ -109,14 +109,14 @@ def download_windows(downloadLink: str):
     # url = IMAGE_URL + f"/windows/ty\u0070ora-setup-x64-{version}.exe"
     fileName = os.path.basename(downloadLink).replace(".exe","")
     version=re.search(r"([\d\.]{3,}(-dev)?)", fileName).groups(1)
-    filePath = os.path.join(RETRIEVE_DIR, fileName)
+    filePath = os.path.join(RETRIEVE_DIR, os.path.basename(downloadLink))
     if not os.path.exists(filePath):
         print(f"下载 {fileName}")
         downloadFile(downloadLink, filePath)
         print(f"{fileName} 下载完成")
     else:
-        print("使用缓存")
-    if not os.path.exists(os.path.join(RETRIEVE_DIR, fileName)):
+        print("使用缓存exe")
+    if not os.path.exists(os.path.join(RETRIEVE_DIR, version)):
         print("开始解包（静默打包，提速1/6）")
         extractTOOL = os.path.join(rootPath, "libs/innoextract.exe")
         subprocess.check_call([extractTOOL, fileName, "-s"], cwd=RETRIEVE_DIR)
@@ -124,7 +124,7 @@ def download_windows(downloadLink: str):
                   os.path.join(RETRIEVE_DIR, version))
         print("解包完成")
     else:
-        print("使用缓存")
+        print("使用缓存文件夹")
     set_output("update_version", version)
     buildTyPro(version)
 
