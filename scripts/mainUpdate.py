@@ -107,7 +107,7 @@ def buildTyPro(version: str):
 
 def download_windows(downloadLink: str):
     # url = IMAGE_URL + f"/windows/ty\u0070ora-setup-x64-{version}.exe"
-    fileName = os.path.basename(downloadLink).replace(".exe")
+    fileName = os.path.basename(downloadLink).replace(".exe","")
     version=re.search(r"([\d\.]{3,}(-dev)?)", fileName).groups(1)
     filePath = os.path.join(RETRIEVE_DIR, fileName)
     if not os.path.exists(filePath):
