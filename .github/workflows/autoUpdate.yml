@@ -9,11 +9,11 @@ jobs:
     runs-on: windows-latest
     timeout-minutes: 5
     strategy:
-#       fail-fast: false
+      fail-fast: false
       matrix:
         language: ["python"]
 #         check-type: ['standard','dev']
-        python-version: ['3.8', '3.10']
+#         python-version: ['3.8', '3.10']
         
     steps:
       - name: Check out repository code
@@ -22,7 +22,8 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v3
         with:
-          python-version: ${{python-version}}
+          python-version: '3.8'
+          #${{python-version}}
 #           "3.x"
           cache: 'pip'
       - name: Display Python version
