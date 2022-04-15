@@ -1,151 +1,135 @@
+from contextlib import nullcontext
+from inspect import _void
 import re
+import sys
 import requests
 import subprocess
 import os
 import shutil
-from libs.masar import pack_asar
-import time
 import json
-from pkg_resources import parse_version
+from libs.decoding import extractWdec, packWenc
 import zipfile
 
-inject_old = br"function validateString (value, name) { if (typeof value !== 'string') throw new TypeError('The \"' + name + '\" argument must be of type string. Received type ' + typeof value); }"
-inject_new = br"function validateString(){};"
+
+def set_output(name, value):
+    print(f"::set-output name={name}::{value}")
+
 
 rootPath = os.path.dirname(__file__)
 
-IMAGE_URL = "https://download.typora.io"#https://typora-download.oss-cn-shanghai.aliyuncs.com"  # https://download.typora.io"
+# https://ty\u0070ora-download.oss-cn-shanghai.aliyuncs.com"
+# IMAGE_URL = "https://download.ty\u0070ora.io"
 
-TOOL = os.path.join(rootPath, "libs/innoextract.exe")
-PackTOOL = os.path.join(rootPath, "libs/compiler/ISCC.exe")
 
 RETRIEVE_DIR = os.path.join(rootPath, "packages")
 os.makedirs(RETRIEVE_DIR, exist_ok=True)
 
 
-def isLatestVersion():
+# 返回：下载链接，空字符串表示无更新
+def isLatestVersion(isDev: bool = True) -> str:
     headers = {
         'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36'
     }
-    response = requests.get('https://api.github.com/repos/taozhiyu/TyProAction/tags', headers=headers)
-    latestTag = json.loads(response.text)[0]["name"]
+    response = requests.get(
+        'https://api.github.com/repos/taozhiyu/TyProAction/tags', headers=headers).text
+    # latestTag = json.loads(response)[0]["name"]
+    resp = json.loads(requests.get(
+        f'https://ty\u0070ora.io/releases/{"dev_" if isDev else ""}windows_64.json', headers=headers).text)
+    latestVersion = resp["version"]
+    # print(latestTag, latestVersion)
+    set_output("update_url", f"update to {latestVersion}")
+    return resp["download"] if latestVersion in response else ""
 
-    response = requests.get('https://typora.io/releases/windows_64.json', headers=headers)
-    latestVersion = json.loads(response.text)["version"]
-    print(latestTag, latestVersion)
-    return latestVersion if parse_version(latestTag) == parse_version(latestVersion) else ""
 
-
-def downloadFile(url, path):
-    fileName = url.split('/')[-1]
+def downloadFile(url, filename):
     r = requests.get(url)
-    with open(os.path.join(path, fileName), "wb") as f:
+    with open(filename, "wb") as f:
         f.write(r.content)
 
 
-def make_inject(path: str):
-    inj = f"mod.require('{os.path.basename(path)}');"
-    inj = inject_new + inj.encode()
-    if len(inj) > len(inject_old):
-        print("Too long inject")
-        exit(2)
-    inj = inj.ljust(len(inject_old), b" ")
-    return inj
-
-
-def test_inject(version: str):
-    # 定义
-    inject_file = os.path.join(rootPath, "libs/dump.js")
-    prog = os.path.join(RETRIEVE_DIR, version, "resources/app.asar.unpacked/main.node")
-
-    # 复制dump.js
-    target = os.path.join(os.path.dirname(prog), "../node_modules/", os.path.basename(inject_file))
-    shutil.copyfile(inject_file, target)
-
-    # 植入dump
-    with open(prog, "rb") as f:
-        node = f.read()
-    if inject_old not in node:
-        assert f"Cannot find injection point in program file: {prog}"
-
-    with open(prog, "wb") as f:
-        f.write(node.replace(inject_old, make_inject(target)))
-
-    # 运行，dump文件
-    try:
-        out = subprocess.check_output([os.path.join(RETRIEVE_DIR, version, 'Typora')], timeout=None)
-    except subprocess.TimeoutExpired as e:
-        out = e.stdout
-        print('error')
-    print(out)
-    assert b"Inject Success" in out, f"Cannot inject@V{version}"
-    print("start to build")
-    # 成功dump
-    # 修改（js里完成）
-    # 打包
-    appDir = ""
-    newAppDir = os.path.join(rootPath, f"output/app{round(time.time())}")
-    os.makedirs(newAppDir)
-    appDir = newAppDir
-    # 复制dump出来的js
-    atom = os.path.join(rootPath, "../atom.js")
-    shutil.move(atom, os.path.join(appDir, "atom.js"))
-    # 修改并复制配置json
-    package = os.path.join(os.path.dirname(prog), "../package.json")
-    # 修改打包时版本号
-    with open(package, "r+") as f:
+def buildTyPro(version: str):
+    # 解包asar
+    rawAsarFile = os.path.join(RETRIEVE_DIR, version, "resources/app.asar")
+    outPutPath = os.path.join(rootPath, "output")
+    extractWdec(rawAsarFile, outPutPath)
+    DecAppPath = os.path.join(outPutPath, "dec_app")
+    # 修改
+    with open(os.path.join(DecAppPath, "atom.js"), "r+", encoding='utf8') as f:
         code = f.read()
-        f.seek(0)
-        f.truncate()
-        f.write(code.replace("main.node", "atom.js"))
-    shutil.copyfile(package, os.path.join(appDir, "package.json"))
-    # 打包压缩
-    pack_asar(appDir, os.path.join(appDir, "../app.asar"))
-    # 复制asar文件到根目录
-    shutil.copyfile(os.path.join(appDir, "../app.asar"), os.path.join(rootPath, "app.asar"))
-
-    zip_file = zipfile.ZipFile(os.path.join(rootPath,f'app-file-V{version}.zip'),'w')
-    # 把zfile整个目录下所有内容，压缩为new.zip文件
-    zip_file.write("app.asar",compress_type=zipfile.ZIP_DEFLATED)
-    zip_file.close()
-
-    # 添加回app文件夹
-    shutil.copyfile(os.path.join(appDir, "../app.asar"), os.path.join(os.path.dirname(prog), "../app.asar"))
-    # 打包
-    with open(os.path.join(os.path.dirname(PackTOOL), "typro.iss"), "r+", encoding='gbk') as f:
-        code = f.read()
-        regex = r"MyAppVersion \"[\d\.]+\""
-        result = re.sub(regex, "MyAppVersion \""+version+"\"", code, 0, re.MULTILINE)
-        regex = r"packages\\[\d\.]+"
-        result = re.sub(regex, r"packages\\"+version, result, 0, re.MULTILINE)
+        # 替换公钥
+        regex = r"-+BEGIN PUBLIC KEY-+.+-+END PUBLIC KEY-+"
+        publicKey = "-----BEGIN PUBLIC KEY-----\\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0Uj1Cvz56krcs6rVe92g\\nA52+k9TyMBahmrY34MlFtO/87PZl+YG0ft7j2uQs4gr9A5XkJFRbyZ9HGnBaH+g5\\nUvRnAZeT2Bp9JXvOm6GE9hi4FXyF98lFI509IC/jau/Bj7j/0DW87TrigCFCr4D0\\noHQlu5IOk9RReLIiFUuEyBsLN58ZpFALUatKpArtGS6NwtKYTgG1mwbNNX3O2MBn\\nJpBTUXEWe1bwGR3e5kNUxbNJDEWEmUK8d6pYGY43aKB7H4dEC33sorNByEhBn6On\\n/6cjw5xDER8lSPetAEpmIHR6WsP6qtYrhD6UUcCvkNUoLoVIO9YYq/7sBWU/b7SM\\nVwIDAQAB\\n-----END PUBLIC KEY-----"
+        result = re.sub(regex, publicKey, code, 0, re.DOTALL)
+        # 去验证
+        regex = r"https:\/\/store\.ty\u0070ora\.io|https:\/\/dian\.ty\u0070ora\.com\.cn|https:\/\/ty\u0070ora\.com\.cn\/store\/"
+        result = re.sub(regex, "", result, 0)
+        # 修改更新位置到本库
+        regex = r"\$\{([^\}]+)\}\/releases\/(dev_)?windows_"
+        subst = "${\\1===\"ty\u0070oraio.cn\"?\"cdn.staticaly.com/gh/taozhiyu/TyProAction/main/config\":\"raw.githubusercontent.com/taozhiyu/TyProAction/main/config\"}/\\2releases/windows_"
+        result = re.sub(regex, subst, result, 0)
+        # 更改安装文件名
+        regex = r"ty\u0070ora-update-[\"+\w\.-]+-\""
+        subst = "Typro-Update-V\""
+        result = re.sub(regex, subst, result, 0)
+        # 写回
         f.seek(0)
         f.truncate()
         f.write(result)
-    # 移除注入
-    os.remove(target)
+    # 打包asar
+    packWenc(DecAppPath, outPutPath)
+    outPutAsar = os.path.join(outPutPath, "app.asar")
+    # 压缩asar
+    zipFile = os.path.join(rootPath, f'../asar-file-V{version}.zip')
+    with zipfile.ZipFile(zipFile, 'w', zipfile.ZIP_DEFLATED) as f:
+        f.write(outPutAsar, "./app.asar")
+    print('zip path:', zipFile)
+    # 复制回安装文件夹
+    shutil.copyfile(outPutAsar, rawAsarFile)
+    # 打包
+    print("开始打包（静默打包，提速1/6）")
 
-    subprocess.check_call([PackTOOL, os.path.join(os.path.dirname(PackTOOL), "typro.iss")], cwd=rootPath)
-
+    PackTOOL = os.path.join(rootPath, "libs/compiler/ISCC.exe")
+    subprocess.check_call([PackTOOL, os.path.join(
+        os.path.dirname(PackTOOL), "typro.iss"), "-Q"], cwd=rootPath)
+    print("exe打包完成")
     # 分发(action实现)
 
-    #删除垃圾
+    # 删除垃圾
     shutil.rmtree(RETRIEVE_DIR)
-    shutil.rmtree(os.path.join(rootPath, "output"))
-    os.remove(os.path.join(rootPath, "app.asar"))
+    shutil.rmtree(outPutPath)
+    print("垃圾删除完成")
 
-def download_windows(version: str) -> str:
-    url = IMAGE_URL + f"/windows/typora-setup-x64-{version}.exe"
-    filename = os.path.join(RETRIEVE_DIR, os.path.basename(url))
-    if not os.path.exists(filename):
-        downloadFile(url, RETRIEVE_DIR)
-    if not os.path.exists(os.path.join(RETRIEVE_DIR, version)):
-        subprocess.call([TOOL, filename], cwd=RETRIEVE_DIR, timeout=None)
-        time.sleep(1)
-        os.rename(os.path.join(RETRIEVE_DIR, "app"), os.path.join(RETRIEVE_DIR, version))
+
+def download_windows(downloadLink: str):
+    # url = IMAGE_URL + f"/windows/ty\u0070ora-setup-x64-{version}.exe"
+    fileName = os.path.basename(downloadLink).replace(".exe")
+    version=re.search(r"([\d\.]{3,}(-dev)?)", fileName).groups(1)
+    filePath = os.path.join(RETRIEVE_DIR, fileName)
+    if not os.path.exists(filePath):
+        print(f"下载 {fileName}")
+        downloadFile(downloadLink, filePath)
+        print(f"{fileName} 下载完成")
+    else:
+        print("使用缓存")
+    if not os.path.exists(os.path.join(RETRIEVE_DIR, fileName)):
+        print("开始解包（静默打包，提速1/6）")
+        extractTOOL = os.path.join(rootPath, "libs/innoextract.exe")
+        subprocess.check_call([extractTOOL, fileName, "-s"], cwd=RETRIEVE_DIR)
+        os.rename(os.path.join(RETRIEVE_DIR, "app"),
+                  os.path.join(RETRIEVE_DIR, version))
+        print("解包完成")
+    else:
+        print("使用缓存")
+    set_output("update_version", version)
+    buildTyPro(version)
 
 
 if __name__ == '__main__':
-    v = isLatestVersion()
+    isDev = sys.argv[1] == "dev"
+    print(f"当前检测：{'测试' if isDev else '稳定'}版")
+    v = isLatestVersion(isDev)
     if len(v) > 0:
         download_windows(v)
-        test_inject(v)
+    else:
+        set_output("update_url", "")
+        print("无需更新")

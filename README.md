@@ -46,6 +46,7 @@ And enjoy the ultimate `Automatic Update` (Btea) experience at the same time!
   4. Use the keygen template to initiate a new issue<br>
   5. enjoy it！<br>
 </details>
+
 ## What I did
 
 Current Version（1-Click Update）：

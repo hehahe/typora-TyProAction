@@ -8,28 +8,45 @@ jobs:
     name: check update
     runs-on: windows-latest
     timeout-minutes: 5
+    language: python
     strategy:
       fail-fast: false
       matrix:
-        language: [ 'python' ]
+        check-type: ['standard','dev']
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
+
       - name: Setup Python
         uses: actions/setup-python@v3
         with:
           python-version: "3.x"
           cache: 'pip'
+
+      - name: Setup requirements
       - run: pip install -r scripts/requirements.txt
-      
-      - name: check and generate new version
-        run: python scripts/mainUpdate.py
-      
-      - uses: actions/github-script@v6
+
+      - name: (${{matrix.check-type}})check and build new version
+        id: check-with-python
+        run: python scripts/mainUpdate.py ${{matrix.check-type}}
+
+      - name: (${{matrix.check-type}}) upload and generate
+        if: steps.check-with-python.outputs.update_url == ''
+        id: update-with-node
+        uses: actions/github-script@v6
         with:
           script: |
             const script = require('./scripts/update.js')
-            await script({github, context})
-      - uses: stefanzweifel/git-auto-commit-action@v4
+            await script({
+              github,
+              context,
+              core,
+              checkType:${{matrix.check-type}},
+              update_version:${{steps.check-with-python.outputs.update_version}}
+            })
+
+      - name: git push
+        uses: stefanzweifel/git-auto-commit-action@v4
+        if: steps.check-with-python.outputs.update_url == ''
         with:
-          commit_message: update
+          commit_message: ${{steps.update-with-node.outputs.commit_message}}
