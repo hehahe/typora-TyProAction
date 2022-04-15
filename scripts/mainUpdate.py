@@ -11,6 +11,10 @@ from libs.decoding import extractWdec, packWenc
 import zipfile
 import time
 
+# fix unicode character display error
+sys.stdin.reconfigure(encoding='utf-8')
+sys.stdout.reconfigure(encoding='utf-8')
+
 
 def set_output(name, value):
     print(f"::set-output name={name}::{value}")
