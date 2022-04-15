@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
-from crypto.Cipher import AES
-from crypto.Util.Padding import pad, unpad
+from Crypto.Cipher import AES
+from Crypto.Util.Padding import pad, unpad
 from base64 import b64decode, b64encode
 from os import listdir, makedirs
 from os.path import isfile, isdir, join as pjoin, split as psplit, exists
