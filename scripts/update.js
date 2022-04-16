@@ -10,7 +10,7 @@ module.exports = async ({
     isDev = checkType === 'dev';
     console.log(isDev?"开发版":"稳定版")
     const exePath = path.resolve('Typro-update-V' + update_version + '.exe');
-    const win64ConfigPath = path.resolve('config/releases/windows_64.json');
+    const win64ConfigPath = path.resolve(`config/releases/${isDev?"dev_":""}windows_64.json`);
     const asarZip = path.resolve('asar-file-V' + update_version + '.zip');
 
     //发布新release
@@ -61,7 +61,7 @@ module.exports = async ({
     console.log(
         (
             await github.request(
-                'GET https://purge.jsdelivr.net/gh/taozhiyu/TyProAction@main/config/releases/windows_64.json'
+                `GET https://purge.jsdelivr.net/gh/taozhiyu/TyProAction@main/config/releases/${isDev?"dev_":""}windows_64.json`
             )
         ).data
     );
