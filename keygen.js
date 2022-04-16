@@ -25,6 +25,8 @@ module.exports = async ({
     var signInfo={fingerprint: mc.i, email , license, type: '1'};
     return JSON.stringify(signInfo);
   }
+  if (JSON.stringify(context.payload.issue.labels).includes('🔧Config/配置⚙️'))
+    return
   if (context.payload.issue.title === 'keygen') {
     try {
       const info = context.payload.issue.body;
