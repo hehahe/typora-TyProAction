@@ -41,7 +41,7 @@ jobs:
               github,
               context,
               core,
-              checkType:${{matrix.check-type}},
+              checkType:"${{matrix.check-type}}",
               update_version:"${{steps.check_with_python.outputs.update_version}}"
             })
 
