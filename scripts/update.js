@@ -52,7 +52,7 @@ module.exports = async ({
     conf.downloadCN =
         'https://ghproxy.com/' + assetInfo.data.browser_download_url;
     fs.writeFileSync(win64ConfigPath, JSON.stringify(conf, '', 4));
-
+    if(isDev)conf.download=conf.downloadCN
     //删除缓存文件
     fs.unlinkSync(exePath);
     fs.unlinkSync(asarZip);
