@@ -1,5 +1,4 @@
 # -*- coding:utf-8 -*-
-from contextlib import nullcontext
 import re
 import sys
 import requests
@@ -55,7 +54,7 @@ def downloadFile(url, filename):
 def buildTyPro(version: str):
     # 解包asar
     rawAsarFile = os.path.join(RETRIEVE_DIR, version, "resources/app.asar")
-    outPutPath = os.path.join(rootPath, f"output{time.time_ns()}")
+    outPutPath = os.path.join(rootPath, f"output/{time.time_ns()}")
     extractWdec(rawAsarFile, outPutPath)
     DecAppPath = os.path.join(outPutPath, "dec_app")
     # 修改
@@ -94,9 +93,10 @@ def buildTyPro(version: str):
     PackTOOL = os.path.join(rootPath, "libs/compiler/ISCC.exe")
     with open(os.path.join(os.path.dirname(PackTOOL), "typro.iss"), "r+", encoding='gbk') as f:
         code = f.read()
-        regex = r"MyAppVersion \"[\d\.]+\""
-        result = re.sub(regex, "MyAppVersion \""+version+"\"", code, 0, re.MULTILINE)
-        regex = r"packages\\[\d\.]+"
+        regex = r"MyAppVersion \"([\d\.]{3,}(-dev)?)\""
+        result = re.sub(regex, "MyAppVersion \""+version +
+                        "\"", code, 0, re.MULTILINE)
+        regex = r"packages\\([\d\.]{3,}(-dev)?)"
         result = re.sub(regex, r"packages\\"+version, result, 0, re.MULTILINE)
         f.seek(0)
         f.truncate()
@@ -110,14 +110,14 @@ def buildTyPro(version: str):
 
     # 删除垃圾
     shutil.rmtree(RETRIEVE_DIR)
-    shutil.rmtree(outPutPath)
+    shutil.rmtree(os.path.join(rootPath, "output"))
     print("垃圾删除完成")
 
 
 def download_windows(downloadLink: str):
     # url = IMAGE_URL + f"/windows/ty\u0070ora-setup-x64-{version}.exe"
-    fileName = os.path.basename(downloadLink).replace(".exe","")
-    version=re.search(r"([\d\.]{3,}(-dev)?)", fileName).groups(1)[0]
+    fileName = os.path.basename(downloadLink).replace(".exe", "")
+    version = re.search(r"([\d\.]{3,}(-dev)?)", fileName).groups(1)[0]
     filePath = os.path.join(RETRIEVE_DIR, os.path.basename(downloadLink))
     if not os.path.exists(filePath):
         print(f"下载 {fileName}")
@@ -128,14 +128,20 @@ def download_windows(downloadLink: str):
     if not os.path.exists(os.path.join(RETRIEVE_DIR, version)):
         print("开始解包（静默打包，提速1/6）")
         extractTOOL = os.path.join(rootPath, "libs/innoextract.exe")
-        subprocess.check_call([extractTOOL, fileName+".exe", "-s"], cwd=RETRIEVE_DIR)
+        subprocess.check_call(
+            [extractTOOL, fileName + ".exe", "-s"], cwd=RETRIEVE_DIR)
         os.rename(os.path.join(RETRIEVE_DIR, "app"),
                   os.path.join(RETRIEVE_DIR, version))
         print("解包完成")
     else:
         print("使用缓存文件夹")
     set_output("update_version", version)
-    buildTyPro(version)
+    try:
+        buildTyPro(version)
+    except BaseException as e:
+        print('error 可能是解密错误')
+        print(e)
+        raise '解密错误'
 
 
 if __name__ == '__main__':

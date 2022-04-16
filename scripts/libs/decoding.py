@@ -18,10 +18,28 @@ def aesInit(asarPath: str):
     global AES_IV, AES_KEY
     with open(asarPath, "rb") as f:
         node = f.read()
-        keyPointer = node.find(b'\xC7\x85\xD0\x01\x00\x00')
+        # keyPointer = node.find(b'\xC7\x85\xD0\x01\x00\x00')
+        findPointer = []
+        for i in range(100):
+            if 4 * i > 0xff:
+                break
+            pt = node.find(bytes.fromhex(
+                f"C785{f'{hex(4 * i)}'.replace('x', '')[-2:]}010000"))
+            if pt > 0:
+                findPointer.append(pt)
+
+        successPointerNumber = 0
+        keyPointer = 0
+        for x in findPointer:
+            if successPointerNumber == 7:
+                keyPointer = x - 70
+            if (x + 10) in findPointer:
+                successPointerNumber += 1
+        print(keyPointer)
         iv = []
+        bitPointer = 8 if node[keyPointer - 8] == 65 else 7
         for p in range(4):
-            pointer = keyPointer - (3 - p) * 8 - 1
+            pointer = keyPointer - (3 - p) * bitPointer - 1
             temp = '0x'
             for x in range(4):
                 temp += (hex(node[pointer - x])).replace('x', '')[-2:]
@@ -156,21 +174,3 @@ def packWenc(path, outPath):
 
     rmtree(encFilePath)
     print("remove temp dir")
-
-
-def main():
-    argParser = ArgumentParser()
-    argParser.add_argument("asarPath", type=str, help="app.asar file path/dir [input/ouput]")
-    argParser.add_argument("dirPath", type=str, help="as tmp and out directory.")
-
-    argParser.add_argument('-u', dest='mode', action='store_const',
-                           const=packWenc, default=extractWdec,
-                           help='pack & encryption (default: extract & decryption)')
-    args = argParser.parse_args()
-
-    args.mode(args.asarPath, args.dirPath)
-    print("Done!")
-
-
-if __name__ == '__main__':
-    main()
