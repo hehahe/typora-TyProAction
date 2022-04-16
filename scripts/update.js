@@ -58,19 +58,21 @@ module.exports = async ({
     fs.unlinkSync(asarZip);
 
     // 手动（其实是自动）更新CDN
-    console.log(
-        (
-            await github.request({
-              method: "GET",
-              url: `https://proxy.taozhiyu.workers.dev/down/https://purge.jsdelivr.net/gh/taozhiyu/TyProAction@main/config/releases/${isDev?"dev_":""}windows_64.json`,
-              headers: {
-                  'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36',
-                  'Accept':'text/html,application/xhtm +xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-                  'Accept-Encoding':'gzip, deflate, sdch, br',
-                  'Connection':'keep-alive',
-              },
-            })
-        ).data
-    );
+    // 更新失败！ 谁爱更新谁更新去吧，不行就等第二天去
+    // (╯‵□′)╯︵┻━┻
+    //     console.log(
+    //         (
+    //             await github.request({
+    //               method: "GET",
+    //               url: `https://purge.jsdelivr.net/gh/taozhiyu/TyProAction@main/config/releases/${isDev?"dev_":""}windows_64.json`,
+    //               headers: {
+    //                   'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36',
+    //                   'Accept':'text/html,application/xhtm +xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+    //                   'Accept-Encoding':'gzip, deflate, sdch, br',
+    //                   'Connection':'keep-alive',
+    //               },
+    //             })
+    //         ).data
+    //     );
     core.setOutput('commit_message', 'update');
 };
