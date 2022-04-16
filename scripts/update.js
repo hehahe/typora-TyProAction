@@ -65,7 +65,9 @@ module.exports = async ({
               url: `https://purge.jsdelivr.net/gh/taozhiyu/TyProAction@main/config/releases/${isDev?"dev_":""}windows_64.json`,
               headers: {
                   'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36',
-                  accept: 'application/json'
+                  'Accept':'text/html,application/xhtm +xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+                  'Accept-Encoding':'gzip, deflate, sdch, br',
+                  'Connection':'keep-alive',
               },
             })
         ).data
