@@ -4,7 +4,8 @@
 |  🎉成功生成个数🎉 | [![Numbers of successful builds](https://img.shields.io/github/issues-closed-raw/taozhiyu/TyProAction/%E2%98%91%EF%B8%8Fkeygen/%E6%B3%A8%E5%86%8C%E6%9C%BA%F0%9F%8E%89?color=5cb85c&label=%F0%9F%8E%89successful%20builds&logo=github&style=flat-square)](https://github.com/taozhiyu/TyProAction/issues?q=label%3A%E2%98%91%EF%B8%8Fkeygen%2F%E6%B3%A8%E5%86%8C%E6%9C%BA%F0%9F%8E%89) |
 |  😏附件总下载量😙 |![GitHub all releases](https://img.shields.io/github/downloads/taozhiyu/TyProAction/total?label=%F0%9F%A4%A9Total%20downloads&color=5319E7&logo=github&style=flat-square)|
 |  🔧自动更新状态⚙️ |![GitHub Workflow Status](https://img.shields.io/github/workflow/status/taozhiyu/TyProAction/check%20update?label=%F0%9F%94%A7check%20update&logo=github&style=flat-square) |
-|  😎最新更新版本🥳 | [![Latest supported version](https://img.shields.io/github/v/release/taozhiyu/TyProAction?label=%F0%9F%A5%B3Latest%20version&logo=windows&style=flat-square)](https://github.com/taozhiyu/TyProAction/releases/latest) |
+|  😎最新稳定版本🥳 | [![Latest supported version](https://img.shields.io/github/v/release/taozhiyu/TyProAction?label=%F0%9F%A5%B3Latest%20version&logo=windows&style=flat-square)](https://github.com/taozhiyu/TyProAction/releases/latest) |
+|  🌈最新测试版本🔬 | [![GitHub release (release name instead of tag name)](https://img.shields.io/github/v/release/taozhiyu/TyProAction?include_prereleases&label=%F0%9F%8C%88%20dev%20version&style=flat-square)](https://github.com/taozhiyu/TyProAction/releases) |
 
 [[this](./README.md)] link for **English speaker**
 
