@@ -2,12 +2,13 @@ name: check update
 on:
   workflow_dispatch:
     inputs:
-    force-version:
-      description: "version tag(eg. 1.2.3)"
-      required: false
-    force-update-type:
-      description: "1 for update config"
-      required: false
+      force-version:
+        description: "version tag(eg. 1.2.3)"
+        required: true
+      force-update-type:
+        description: "1 for update config"
+        required: true
+        default: "0"
   schedule:
   - cron: '0 0 */3 * *'
 jobs:
