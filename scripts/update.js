@@ -20,17 +20,17 @@ module.exports = async ({
 
     if (forceVersion) {
         console.log('手动更新');
-        const list = await github.rest.repos.listTags({
+        const list = (await github.rest.repos.listTags({
             owner: context.repo.owner,
             repo: context.repo.repo,
-        });
-        if (update_version in list) {
+        })).data;
+        if (update_version in JSON.stringify(list)) {
             //tag已经存在
-            const tagInfo = await github.rest.repos.getReleaseByTag({
+            const tagInfo = (await github.rest.repos.getReleaseByTag({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 tag: 'v' + update_version,
-            });
+            })).data;
             // tagId更新
             const tempId = tagInfo.tag_name.split('_');
             if (tempId.length > 1) {
@@ -60,7 +60,7 @@ module.exports = async ({
             new Date().toUTCString(),
         prerelease: isDev,
     });
-    console.log(releaseInfo);
+    //console.log(releaseInfo);
 
     const assetInfo = await github.rest.repos.uploadReleaseAsset({
         owner: context.repo.owner,
@@ -69,7 +69,7 @@ module.exports = async ({
         name: 'Typro-Update-V' + update_version + '.exe',
         data: fs.readFileSync(exePath),
     });
-    console.log(assetInfo);
+    //console.log(assetInfo);
 
     const assetInfo2 = await github.rest.repos.uploadReleaseAsset({
         owner: context.repo.owner,
@@ -78,7 +78,7 @@ module.exports = async ({
         name: 'asar-file-V' + update_version + '.zip',
         data: fs.readFileSync(asarZip),
     });
-    console.log(assetInfo2);
+    //console.log(assetInfo2);
 
     //更新json配置
     if (!(forceVersion && forceUpdate !== '1')) {
@@ -95,22 +95,5 @@ module.exports = async ({
     fs.unlinkSync(exePath);
     fs.unlinkSync(asarZip);
 
-    // 手动（其实是自动）更新CDN
-    // 更新失败！ 谁爱更新谁更新去吧，不行就等第二天去
-    // (╯‵□′)╯︵┻━┻
-    //     console.log(
-    //         (
-    //             await github.request({
-    //               method: "GET",
-    //               url: `https://purge.jsdelivr.net/gh/taozhiyu/TyProAction@main/config/releases/${isDev?"dev_":""}windows_64.json`,
-    //               headers: {
-    //                   'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36',
-    //                   'Accept':'text/html,application/xhtm +xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-    //                   'Accept-Encoding':'gzip, deflate, sdch, br',
-    //                   'Connection':'keep-alive',
-    //               },
-    //             })
-    //         ).data
-    //     );
     core.setOutput('commit_message', `update ${checkType} V${update_version}`);
 };
