@@ -24,7 +24,7 @@ module.exports = async ({
             owner: context.repo.owner,
             repo: context.repo.repo,
         })).data;
-        if (update_version in JSON.stringify(list)) {
+        if (JSON.stringify(list).includes(update_version)) {
             //tag已经存在
             const tagInfo = (await github.rest.repos.getReleaseByTag({
                 owner: context.repo.owner,
