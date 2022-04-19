@@ -150,6 +150,7 @@ if __name__ == '__main__':
         v = sys.argv[2]
         print(f"当前手动触发版本号：{v}\n版本为{'测试' if 'dev' in v else '稳定'}版")
         v = f"https://typora-download.oss-cn-shanghai.aliyuncs.com/windows/typora-update-x64-{v}.exe"
+        set_output("update_url", f"Manually triggered V{v}")
     else:
         v = isLatestVersion(isDev)
     if isDev and 'dev' not in v:
