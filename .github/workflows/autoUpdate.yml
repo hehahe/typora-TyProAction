@@ -23,23 +23,27 @@ jobs:
         
     steps:
       - name: Check out repository code
+        if: ${{github.event.inputs.force-version}} || contains('${{github.event.inputs.force-version}}','${{matrix.check-type}}')
         uses: actions/checkout@v3
 
       - name: Setup Python
         uses: actions/setup-python@v3
+        if: ${{github.event.inputs.force-version}} || contains('${{github.event.inputs.force-version}}','${{matrix.check-type}}')
         with:
           python-version: '3.x'
           cache: 'pip'
           
       - name: Setup requirements
+        if: ${{github.event.inputs.force-version}} || contains('${{github.event.inputs.force-version}}','${{matrix.check-type}}')
         run: pip install -r scripts/requirements.txt
         
       - name: ${{matrix.check-type}} version check and build
+        if: ${{github.event.inputs.force-version}} || contains('${{github.event.inputs.force-version}}','${{matrix.check-type}}')
         id: check_with_python
         run: python scripts/mainUpdate.py ${{matrix.check-type}} ${{github.event.inputs.force-version}}
 
       - name: ${{matrix.check-type}} upload and generate
-        if: steps.check_with_python.outputs.update_url != ''
+        if: steps.check_with_python.outputs.update_url != '' and ( ${{github.event.inputs.force-version}} || contains('${{github.event.inputs.force-version}}','${{matrix.check-type}}'))
         id: update_with_node
         uses: actions/github-script@v6
         with:
@@ -57,6 +61,6 @@ jobs:
 
       - name: git push
         uses: stefanzweifel/git-auto-commit-action@v4
-        if: steps.check_with_python.outputs.update_url != ''
+        if: steps.check_with_python.outputs.update_url != '' and ( ${{github.event.inputs.force-version}} || contains('${{github.event.inputs.force-version}}','${{matrix.check-type}}'))
         with:
           commit_message: ${{steps.update_with_node.outputs.commit_message}}
