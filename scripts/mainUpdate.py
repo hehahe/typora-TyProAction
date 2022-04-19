@@ -36,7 +36,6 @@ def isLatestVersion(isDev: bool = True) -> str:
     }
     response = requests.get(
         'https://api.github.com/repos/taozhiyu/TyProAction/tags', headers=headers).text
-    # latestTag = json.loads(response)[0]["name"]
     resp = json.loads(requests.get(
         f'https://ty\u0070ora.io/releases/{"dev_" if isDev else ""}windows_64.json', headers=headers).text)
     latestVersion = resp["version"]
@@ -147,7 +146,16 @@ def download_windows(downloadLink: str):
 if __name__ == '__main__':
     isDev = sys.argv[1] == "dev"
     print(f"当前检测：{'测试' if isDev else '稳定'}版")
-    v = isLatestVersion(isDev)
+    if sys.argv.length > 2:
+        v = sys.argv[2]
+        print(f"当前手动触发版本号：{v}\n版本为{'测试' if 'dev' in v else '稳定'}版")
+        v = f"https://typora-download.oss-cn-shanghai.aliyuncs.com/windows/typora-update-x64-{v}.exe"
+    else:
+        v = isLatestVersion(isDev)
+    if isDev and 'dev' in v:
+        set_output("update_url", "")
+        print("非指定版本模式，跳过")
+        sys.exit(0)
     if len(v) > 0:
         print("更新")
         download_windows(v)

@@ -1,8 +1,15 @@
 name: check update
 on:
   workflow_dispatch:
+    inputs:
+    force-version:
+      description: "version tag(eg. 1.2.3)"
+      required: false
+    force-update-type:
+      description: "1 for update config"
+      required: false
   schedule:
-  - cron: '0 0 */5 * *'
+  - cron: '0 0 */3 * *'
 jobs:
   check-update:
     name: check update
@@ -28,7 +35,7 @@ jobs:
         
       - name: ${{matrix.check-type}} version check and build
         id: check_with_python
-        run: python scripts/mainUpdate.py ${{matrix.check-type}}
+        run: python scripts/mainUpdate.py ${{matrix.check-type}} ${{github.event.inputs.force-version}}
 
       - name: ${{matrix.check-type}} upload and generate
         if: steps.check_with_python.outputs.update_url != ''
@@ -42,7 +49,9 @@ jobs:
               context,
               core,
               checkType:"${{matrix.check-type}}",
-              update_version:"${{steps.check_with_python.outputs.update_version}}"
+              update_version:"${{steps.check_with_python.outputs.update_version}}",
+              forceVersion:"${{github.event.inputs.force-version}}",
+              forceUpdate:"${{github.event.inputs.force-update-type}}"
             })
 
       - name: git push
