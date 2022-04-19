@@ -68,7 +68,7 @@ def buildTyPro(version: str):
         result = re.sub(regex, "", result, 0)
         # 修改更新位置到本库
         regex = r"\$\{([^\}]+)\}\/releases\/(dev_)?windows_"
-        subst = "${(\"\\2\"!==\"\"||\\1===\"ty\\\\u0070oraio.cn\")?\"cdn.staticaly.com/gh/taozhiyu/TyProAction/main/config\":\"raw.githubusercontent.com/taozhiyu/TyProAction/main/config\"}/\\2releases/windows_"
+        subst = "taozhiyu.github.io/TyProAction/config/\\2releases/windows_"
         result = re.sub(regex, subst, result, 0)
         # 更改安装文件名
         regex = r"ty\u0070ora-update-[\"+\w\.-]+-\""
