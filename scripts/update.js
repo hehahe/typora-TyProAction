@@ -43,8 +43,8 @@ module.exports = async ({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 release_id: tagInfo.id,
-                tag: tempId.join('_'),
-                name: tagInfo.name + '(已废弃)',
+                tag_name: tempId.join('_'),
+                name: tagInfo.name.replace(/\(已废弃\)/g,"") + '(已废弃)',
             });
         }
     }
