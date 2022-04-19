@@ -152,7 +152,7 @@ if __name__ == '__main__':
         v = f"https://typora-download.oss-cn-shanghai.aliyuncs.com/windows/typora-update-x64-{v}.exe"
     else:
         v = isLatestVersion(isDev)
-    if isDev and 'dev' in v:
+    if isDev and 'dev' not in v:
         set_output("update_url", "")
         print("非指定版本模式，跳过")
         sys.exit(0)
