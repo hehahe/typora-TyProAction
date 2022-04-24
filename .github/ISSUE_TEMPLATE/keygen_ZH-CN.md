@@ -1,6 +1,10 @@
 ---
 name: keygen-ZH-CN
 about: 运行 keygen 脚本
+title: ''
+labels: ''
+assignees: ''
+
 ---
 
 标题请设置为“`keygen`”否则无法识别。

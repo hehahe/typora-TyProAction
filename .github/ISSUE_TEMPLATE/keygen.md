@@ -1,6 +1,10 @@
 ---
 name: keygen
 about: run keygen script
+title: ''
+labels: ''
+assignees: ''
+
 ---
 
 Please set the title to **`keygen`** or it will not be recognized.
