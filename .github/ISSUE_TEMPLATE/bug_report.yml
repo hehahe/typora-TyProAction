@@ -8,8 +8,8 @@ body:
   - type: markdown
     attributes:
       value: |
-      Thank you for taking the time to fill out this bug feedback!
-      Please read [bugFound](https://taozhiyu.github.io/TyProAction/bugFound.html) first
+        Thank you for taking the time to fill out this bug feedback!
+        Please read [bugFound](https://taozhiyu.github.io/TyProAction/bugFound.html) first
   - type: textarea
     id: what-did-you-do
     attributes:
