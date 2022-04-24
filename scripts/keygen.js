@@ -26,7 +26,7 @@ module.exports = async ({ github, context, crypto, PRIVATE_KEY }) => {
         return;
     if (
         JSON.stringify(context.payload.issue.labels).includes(
-            '🐛bug report/反馈🐛'
+            ':bug:bug report/反馈:bug:'
         )
     ) {
         await github.rest.issues.createComment({
