@@ -1,8 +1,7 @@
-name: keygen-ZH-CN
+name: 注册机
 description: 运行 keygen 脚本
 title: "keygen"
 labels: ["☑️keygen/注册机🎉"]
-assignees: ""
 body:
   - type: markdown
     attributes:
