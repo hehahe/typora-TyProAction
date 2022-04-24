@@ -20,15 +20,9 @@ module.exports = async ({ github, context, crypto, PRIVATE_KEY }) => {
         var signInfo = { fingerprint: mc.i, email, license, type: '1' };
         return JSON.stringify(signInfo);
     }
-    if (
-        JSON.stringify(context.payload.issue.labels).includes('🔧Config/配置⚙️')
-    )
+    if (JSON.stringify(context.payload.issue.labels).includes('🔧Config/配置⚙️'))
         return;
-    if (
-        JSON.stringify(context.payload.issue.labels).includes(
-            ':bug:bug report/反馈:bug:'
-        )
-    ) {
+    if (JSON.stringify(context.payload.issue.labels).includes(':bug:bug report/反馈:bug:')) {
         await github.rest.issues.createComment({
             issue_number: context.issue.number,
             owner: context.repo.owner,
