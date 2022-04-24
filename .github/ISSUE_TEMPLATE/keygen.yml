@@ -53,9 +53,9 @@ body:
     validations:
       required: true
   - type: textarea
-    id: ActivationCode
+    id: activationCode
     attributes:
-      label: ActivationCode
+      label: activationCode
       description: Please enter the `Activation Code` you want to display
       placeholder: |
         <!--

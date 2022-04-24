@@ -41,9 +41,9 @@ module.exports = async ({ github, context, crypto, PRIVATE_KEY }) => {
         try {
             const commMatch = context.payload.issue.body
                 .split('###')
-                .filter(a => a.match(/机器码|用户名|激活码/))
+                .filter(a => a.match(/机器码|用户名|激活码|activationCode|machineCode|userName/))
                 .map(a =>
-                    a.replace(/\r|\n| +|<!--|-->|机器码|用户名|激活码/g, '')
+                    a.replace(/\r|\n| +|<!--|-->|机器码|用户名|激活码|activationCode|machineCode|userName/g, '')
                 );
 
             if (commMatch && commMatch.length === 3) {
