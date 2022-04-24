@@ -48,5 +48,5 @@ body:
   - type: textarea
     id: others
     attributes:
-      label: Other content
+      label: Others
       description: If you have other content to submit, please enter it here
