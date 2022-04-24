@@ -57,7 +57,16 @@ jobs:
             })
 
       - name: git push
+        id: auto-commit-action
         uses: stefanzweifel/git-auto-commit-action@v4
         if: steps.check_with_python.outputs.update_url != ''
         with:
           commit_message: ${{steps.update_with_node.outputs.commit_message}}
+          
+      - name: "Run if changes have been detected"
+        if: steps.auto-commit-action.outputs.changes_detected == 'true'
+        run: echo "Changes!"
+
+      - name: "Run if no changes have been detected"
+        if: steps.auto-commit-action.outputs.changes_detected == 'false'
+        run: echo "No Changes!"
