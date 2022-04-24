@@ -1,3 +1,5 @@
+中文用户请转到[【这里】](bugFound.zh.md)
+
 # Bug(s) Found
 
 ## Known issue(s)

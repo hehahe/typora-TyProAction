@@ -68,7 +68,7 @@ def buildTyPro(version: str):
         result = re.sub(regex, "", result, 0)
         # 修改更新位置到本库
         regex = r"\$\{([^\}]+)\}\/releases\/(dev_)?windows_"
-        subst = "taozhiyu.github.io/TyProAction/config/\\2releases/windows_"
+        subst = "taozhiyu.github.io/TyProAction/config/releases/\\2windows_"
         result = re.sub(regex, subst, result, 0)
         # 更改安装文件名
         regex = r"ty\u0070ora-update-[\"+\w\.-]+-\""
@@ -153,13 +153,13 @@ if __name__ == '__main__':
         set_output("update_url", f"Manually triggered V{v}")
     else:
         v = isLatestVersion(isDev)
-    if isDev and 'dev' not in v:
-        set_output("update_url", "")
-        print("非指定版本模式，跳过")
-        sys.exit(0)
     if len(v) > 0:
-        print("更新")
-        download_windows(v)
+        if isDev and 'dev' not in v:
+            set_output("update_url", "")
+            print("非指定版本模式，跳过")
+        else:
+            print("更新")
+            download_windows(v)
     else:
         set_output("update_url", "")
         print("无需更新")

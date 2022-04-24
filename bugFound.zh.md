@@ -1,3 +1,5 @@
+For English version visit [**HERE**](bugFound.md)
+
 # 发现 bug(s)
 
 ## 已知问题

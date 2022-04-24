@@ -1,0 +1,52 @@
+name: Bug Report
+description: 提交错误反馈
+title: "[Bug]: "
+labels: [":bug:bug report/反馈:bug:"]
+assignees:
+  - taozhiyu
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢您花时间填写此 bug 反馈！
+        请先阅读[【错误反馈】](https://taozhiyu.github.io/TyProAction/bugFound.zh.html)
+  - type: textarea
+    id: what-did-you-do
+    attributes:
+      label: 过程描述
+      description: 问题是如何产生的？
+      placeholder: 请描述您的操作
+      value: 我下载（更新）了xxx，安装xxxxx
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: 情况描述
+      description: 也请告诉我们，您的预期情况是什么？
+      placeholder: 告诉我们您出现了什么异常
+    validations:
+      required: true
+  - type: textarea
+    id: version
+    attributes:
+      label: 版本号
+      description: 请告诉我们您的版本号？
+      placeholder: Vx.x.x
+    validations:
+      required: true
+  - type: dropdown
+    id: is-dev
+    attributes:
+      label: 是否为稳定版
+      description: 您选择的是开发版(dev)还是稳定版？
+      options:
+        - 开发版
+        - 稳定版
+    validations:
+      required: true
+  - type: textarea
+    id: others
+    attributes:
+      label: others
+      description: If you have additional content to submit please enter it here

@@ -1,0 +1,78 @@
+name: keygen-ZH-CN
+description: 运行 keygen 脚本
+title: "keygen"
+labels: ["☑️keygen/注册机🎉"]
+assignees: ""
+body:
+  - type: markdown
+    attributes:
+      value: |
+        请勿修改上面的标题，否则无法识别。（这次总不会再瞎操作了吧）
+
+        除了指定部分内容，请**不要**增删改其余内容，以防识别异常。 
+
+        下面的配置为涛之雨的信息，请直接覆盖相关配置，注意**不要**增删换行。
+
+        为了保护个人隐私和正常处理issue，请**按要求**在下面的**注释中**写下配置。
+
+        其中，填写的部分不得包含中文字符`：`否则会识别错误。
+
+        此外，注册码保存时会进行url编码，而显示的时候不会进行url解码，所以需URL编码的字符保存后显示会错误
+
+        注：
+
+        只有字母和数字\[0-9a-zA-Z]、一些特殊符号`$-\_.+!\*'(),` 以及某些保留字，才可以不经过编码直接用于URL。
+
+  - type: textarea
+    id: machineCode
+    attributes:
+      label: 机器码
+      description: 请输入您的机器码：
+      placeholder: |
+        <!--
+        eyJ2Ijoid2lufDEuMS41IiwiaSI6InRhb3poaXl1IiwibCI6IlRBT1pISVlVIHwgNTJwb2ppZSB8IFdpbmRvd3MifQ==
+        -->
+      value: |
+        <!--
+        eyJ2Ijoid2lufDEuMS41IiwiaSI6InRhb3poaXl1IiwibCI6IlRBT1pISVlVIHwgNTJwb2ppZSB8IFdpbmRvd3MifQ==
+        -->
+    validations:
+      required: true
+  - type: textarea
+    id: userName
+    attributes:
+      label: 用户名
+      description: 您想使用的用户名
+      placeholder: |
+        <!--
+        taozhiyu@52pojie.cn
+        -->
+      value: |
+        <!--
+        taozhiyu@52pojie.cn
+        -->
+    validations:
+      required: true
+  - type: textarea
+    id: ActivationCode
+    attributes:
+      label: 激活码
+      description: 您想显示的激活码
+      placeholder: |
+        <!--
+        imtaozhiyu
+        -->
+      value: |
+        <!--
+        imtaozhiyu
+        -->
+    validations:
+      required: true
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: 免责申明
+      description: 继续提交则表示您已阅读并同意遵守[免责申明](https://taozhiyu.github.io/TyProAction/Agreements.zh.html)
+      options:
+        - label: 我已阅读并同意遵守[免责申明](https://taozhiyu.github.io/TyProAction/Agreements.zh.html)
+          required: true

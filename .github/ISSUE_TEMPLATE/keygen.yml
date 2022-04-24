@@ -1,0 +1,78 @@
+name: keygen-ZH-CN
+description: run keygen script
+title: "keygen"
+labels: ["☑️keygen/注册机🎉"]
+assignees: ''
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please **DO NOT** change the title above, otherwise it will not be recognized. (This time there should be no more wrong operation, right?)
+
+        Except for the specified part of the content, please **DO NOT** add, delete or change the rest of the content, in case of abnormal recognition.
+
+        The following configuration is the information of Taozhiyu, please directly OVERWRITE the relevant configuration, be careful **NOT** to add or delete new lines.
+
+        In order to protect personal privacy and handle issues correctly, please write the configuration **in the comments** below **as required**.
+
+        Among them, the filled part must not contain Chinese characters `：` otherwise, it will be recognized incorrectly.
+
+        In addition, when the registration code is saved, it will be url-encoded, but will not be url-decoded when it is displayed, so the characters that need to be URL-encoded will be displayed incorrectly after being saved.
+
+        PS：
+
+        Only alphanumerics \[0-9a-zA-Z], the special characters `$-\_.+!\*'(),` and reserved characters used for their reserved purposes may be used unencoded within a URL.
+
+  - type: textarea
+    id: machineCode
+    attributes:
+      label: machineCode
+      description: "Please enter your machine code:"
+      placeholder: |
+        <!--
+        eyJ2Ijoid2lufDEuMS41IiwiaSI6InRhb3poaXl1IiwibCI6IlRBT1pISVlVIHwgNTJwb2ppZSB8IFdpbmRvd3MifQ==
+        -->
+      value: |
+        <!--
+        eyJ2Ijoid2lufDEuMS41IiwiaSI6InRhb3poaXl1IiwibCI6IlRBT1pISVlVIHwgNTJwb2ppZSB8IFdpbmRvd3MifQ==
+        -->
+    validations:
+      required: true
+  - type: textarea
+    id: userName
+    attributes:
+      label: userName
+      description: Please enter the username you want to use
+      placeholder: |
+        <!--
+        taozhiyu@52pojie.cn
+        -->
+      value: |
+        <!--
+        taozhiyu@52pojie.cn
+        -->
+    validations:
+      required: true
+  - type: textarea
+    id: ActivationCode
+    attributes:
+      label: ActivationCode
+      description: Please enter the `Activation Code` you want to display
+      placeholder: |
+        <!--
+        imtaozhiyu
+        -->
+      value: |
+        <!--
+        imtaozhiyu
+        -->
+    validations:
+      required: true
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Agreements
+      description: By continuing to submit, you acknowledge that you have read and agree to abide by the [Agreements](https://taozhiyu.github.io/TyProAction/Agreements.zh.html)
+      options:
+        - label: I have read and agree to abide by the [Agreements](https://taozhiyu.github.io/TyProAction/Agreements.zh.html)
+          required: true

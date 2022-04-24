@@ -1,0 +1,52 @@
+name: Bug Report
+description: File a bug report
+title: "[Bug]: "
+labels: [":bug:bug report/反馈:bug:"]
+assignees:
+  - taozhiyu
+body:
+  - type: markdown
+    attributes:
+      value: |
+      Thank you for taking the time to fill out this bug feedback!
+      Please read [bugFound](https://taozhiyu.github.io/TyProAction/bugFound.html) first
+  - type: textarea
+    id: what-did-you-do
+    attributes:
+      label: Process Description
+      description: How did the problem arise?
+      placeholder: Please describe your operation
+      value: I downloaded/updated xxx, then installed xxxxxx
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: Situation Description
+      description: Please also tell us what is your expected situation?
+      placeholder: Tell us what abnormalities you are experiencing
+    validations:
+      required: true
+  - type: textarea
+    id: version
+    attributes:
+      label: Version
+      description: Tell us what abnormalities you are experiencing?
+      placeholder: Vx.x.x
+    validations:
+      required: true
+  - type: dropdown
+    id: is-dev
+    attributes:
+      label: Stable or Development
+      description: Did you choose the development or the stable version?
+      options:
+        - Stable
+        - Development
+    validations:
+      required: true
+  - type: textarea
+    id: others
+    attributes:
+      label: 其他内容
+      description: 如果有其他的内容需要提交请在这里输入

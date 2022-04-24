@@ -88,6 +88,8 @@ Actually I don't know why you fork this repository, the key information (mainly 
 
 Anyway, thank you for your support.
 
+> If you have any suggestions or problems that you would like to feedback, please read [[bug found]](bugFound.md) first, and submit issues as required (if necessary)
+
 ## Stargazers over time
 
 ![Stargazers over time](https://starchart.cc/taozhiyu/TyProAction.svg)
