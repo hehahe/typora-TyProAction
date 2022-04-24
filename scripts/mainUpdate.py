@@ -154,12 +154,12 @@ if __name__ == '__main__':
     else:
         v = isLatestVersion(isDev)
     if len(v) > 0:
-        if isDev and 'dev' not in v:
-            set_output("update_url", "")
-            print("非指定版本模式，跳过")
-        else:
+        if isDev ^ 'dev' in v:
             print("更新")
             download_windows(v)
+        else:
+            set_output("update_url", "")
+            print("非指定版本模式，跳过")
     else:
         set_output("update_url", "")
         print("无需更新")
