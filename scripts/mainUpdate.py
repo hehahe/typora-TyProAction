@@ -154,7 +154,7 @@ if __name__ == '__main__':
     else:
         v = isLatestVersion(isDev)
     if len(v) > 0:
-        if isDev ^ 'dev' in v:
+        if isDev ^ ('dev' in v):
             print("更新")
             download_windows(v)
         else:
