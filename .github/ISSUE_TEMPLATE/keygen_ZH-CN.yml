@@ -70,8 +70,8 @@ body:
   - type: checkboxes
     id: terms
     attributes:
-      label: 免责申明
-      description: 继续提交则表示您已阅读并同意遵守[免责申明](https://taozhiyu.github.io/TyProAction/Agreements.zh.html)
+      label: 免责声明
+      description: 继续提交则表示您已阅读并同意遵守[免责声明](https://taozhiyu.github.io/TyProAction/Agreements.zh.html)
       options:
-        - label: 我已阅读并同意遵守[免责申明](https://taozhiyu.github.io/TyProAction/Agreements.zh.html)
+        - label: 我已阅读并同意遵守[免责声明](https://taozhiyu.github.io/TyProAction/Agreements.zh.html)
           required: true
