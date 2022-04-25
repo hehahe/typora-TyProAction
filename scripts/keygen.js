@@ -6,13 +6,14 @@ module.exports = async ({ github, context, crypto, PRIVATE_KEY }) => {
             repo: context.repo.repo,
             body: words || '指令匹配错误\n\ncommand match error',
         });
-        await github.rest.issues.update({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            issue_number: context.issue.number,
-            state: 'closed',
-            labels: [isOk ? '☑️keygen/注册机🎉' : '🤔invalid/无效的😒'],
-        });
+        if (!isOk)
+            await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                state: 'closed',
+                labels: ['🤔invalid/无效的😒'],
+            });
         return;
     }
     function doEnc(MachineCode, email, license) {
@@ -20,9 +21,15 @@ module.exports = async ({ github, context, crypto, PRIVATE_KEY }) => {
         var signInfo = { fingerprint: mc.i, email, license, type: '1' };
         return JSON.stringify(signInfo);
     }
-    if (JSON.stringify(context.payload.issue.labels).includes('🔧Config/配置⚙️'))
+    if (
+        JSON.stringify(context.payload.issue.labels).includes('🔧Config/配置⚙️')
+    )
         return;
-    if (JSON.stringify(context.payload.issue.labels).includes(':bug:bug report/反馈:bug:')) {
+    if (
+        JSON.stringify(context.payload.issue.labels).includes(
+            ':bug:bug report/反馈:bug:'
+        )
+    ) {
         await github.rest.issues.createComment({
             issue_number: context.issue.number,
             owner: context.repo.owner,
@@ -31,13 +38,25 @@ module.exports = async ({ github, context, crypto, PRIVATE_KEY }) => {
         });
         return;
     }
-    if (context.payload.issue.title.toLowerCase() === 'keygen') {
+    if (
+        JSON.stringify(context.payload.issue.labels).includes(
+            '☑️keygen/注册机🎉'
+        ) ||
+        context.payload.issue.title.toLowerCase().startsWith('keygen')
+    ) {
         try {
             const commMatch = context.payload.issue.body
                 .split('###')
-                .filter(a => a.match(/机器码|用户名|激活码|activationCode|machineCode|userName/))
+                .filter(a =>
+                    a.match(
+                        /机器码|用户名|激活码|activationCode|machineCode|userName/
+                    )
+                )
                 .map(a =>
-                    a.replace(/\r|\n| +|<!--|-->|机器码|用户名|激活码|activationCode|machineCode|userName/g, '')
+                    a.replace(
+                        /\r|\n| +|<!--|-->|机器码|用户名|激活码|activationCode|machineCode|userName/g,
+                        ''
+                    )
                 );
 
             if (commMatch && commMatch.length === 3) {

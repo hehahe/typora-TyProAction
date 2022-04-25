@@ -1,6 +1,6 @@
 name: keygen
 description: run keygen script
-title: "keygen"
+title: "keygen (!!!DO NOT CHANGE TEXT HERE!!!)"
 labels: ["☑️keygen/注册机🎉"]
 body:
   - type: markdown
@@ -13,8 +13,6 @@ body:
         The following configuration is the information of Taozhiyu, please directly OVERWRITE the relevant configuration, be careful **NOT** to add or delete new lines.
 
         In order to protect personal privacy and handle issues correctly, please write the configuration **in the comments** below **as required**.
-
-        Among them, the filled part must not contain Chinese characters `：` otherwise, it will be recognized incorrectly.
 
         In addition, when the registration code is saved, it will be url-encoded, but will not be url-decoded when it is displayed, so the characters that need to be URL-encoded will be displayed incorrectly after being saved.
 
