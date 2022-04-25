@@ -31,7 +31,7 @@ NO MORE HASSLE!
 
 Directly download `Typro-Update-Vxxx.exe` from `Release`, just run it and you're ready to upgrade with `ONE CLICK`!
 
-And enjoy the ultimate `Automatic Update` (Btea) experience at the same time!
+And enjoy the ultimate `Automatic Update` (Beta) experience at the same time!
 
 > Notes.
 >
