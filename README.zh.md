@@ -71,9 +71,9 @@
 
 ## 使用时
 
-![TyPRO](https://pic.rmb.bdstatic.com/bjh/916f51fd1bb7ec7d1df3182b51b210e5.gif)
+![TyPRO](http://pic.rmb.bdstatic.com/bjh/552764cbd771d08765e696234a946fc7.gif)
 
-如果上图由于某些不可抗拒的原因导致加载失败，请访问[【此链接】](https://pic.rmb.bdstatic.com/bjh/916f51fd1bb7ec7d1df3182b51b210e5.gif)。
+如果上图由于某些不可抗拒的原因导致加载失败，请访问[【此链接】](http://pic.rmb.bdstatic.com/bjh/552764cbd771d08765e696234a946fc7.gif)。
 
 ## 标星用户
 

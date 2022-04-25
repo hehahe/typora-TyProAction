@@ -71,10 +71,9 @@ Previous Version（Manual copying）：
 
 ## When you use
 
-![TyPRO](https://pic.rmb.bdstatic.com/bjh/916f51fd1bb7ec7d1df3182b51b210e5.gif)
+![TyPRO](http://pic.rmb.bdstatic.com/bjh/552764cbd771d08765e696234a946fc7.gif)
 
-If the image above failed to load cause of some irresistible reasons, visit [【this】](https://pic.rmb.bdstatic.com/bjh/916f51fd1bb7ec7d1df3182b51b210e5.gif
-) link.
+If the image above failed to load cause of some irresistible reasons, visit [【this】](http://pic.rmb.bdstatic.com/bjh/552764cbd771d08765e696234a946fc7.gif) link.
 
 ## Who has starred
 
