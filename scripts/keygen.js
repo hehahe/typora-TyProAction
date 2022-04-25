@@ -6,14 +6,13 @@ module.exports = async ({ github, context, crypto, PRIVATE_KEY }) => {
             repo: context.repo.repo,
             body: words || '指令匹配错误\n\ncommand match error',
         });
-        if (!isOk)
-            await github.rest.issues.update({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: context.issue.number,
-                state: 'closed',
-                labels: ['🤔invalid/无效的😒'],
-            });
+        await github.rest.issues.update({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: context.issue.number,
+            state: 'closed',
+            labels: [isOk?'☑️keygen/注册机🎉':'🤔invalid/无效的😒'],
+        });
         return;
     }
     function doEnc(MachineCode, email, license) {
