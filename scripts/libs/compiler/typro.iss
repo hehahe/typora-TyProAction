@@ -3,7 +3,7 @@
 #define MyAppPublisher "taozhiyu studio"
 #define MyAppURL "https://taozhiyu.github.io/TyProAction"
 #define MyAppExeName "Typora.exe"
-#define MyAppId "37771A20-7167-44C0-B322-FD3E54C56156"      
+#define MyAppId "37771A20-7167-44C0-B322-FD3E54C56156"
 #define MyRegInstallPath_sk "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{"+MyAppId+"}_is1"
 #define MyRegInstallPath_vn "InstallLocation"
 #define MyAppLicenseURL "https://taozhiyu.github.io/TyProAction"
@@ -17,7 +17,7 @@ AppVerName={#MyAppName} {#MyAppVersion}
 AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
-AppUpdatesURL={#MyAppURL}   
+AppUpdatesURL={#MyAppURL}
 DefaultDirName={code:GetInstallPath}
 DisableDirPage=yes
 DefaultGroupName=Typora
@@ -30,7 +30,7 @@ SolidCompression=yes
 WizardStyle=modern
 Uninstallable=no
 LanguageDetectionMethod=uilanguage
-ShowLanguageDialog=no 
+ShowLanguageDialog=no
 
 [Languages]
 Name: "english"; MessagesFile: ".\Default.isl"
@@ -47,7 +47,7 @@ Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChang
 //==============================Load DLL start==============================
 type
   TBtnEventProc = procedure (h:HWND);
-  TPBProc = function(h:hWnd;Msg,wParam,lParam:Longint):Longint;  
+  TPBProc = function(h:hWnd;Msg,wParam,lParam:Longint):Longint;
   TTimerProc = procedure(H: LongWord; Msg: LongWord; IdEvent: LongWord; Time: LongWord);
 
 
@@ -55,9 +55,9 @@ Const
   GWL_EXSTYLE = (-20);
   GCL_STYLE = (-26);
   CS_DROPSHADOW = $20000;
-  
+
   BtnClickEventID      = 1;
-  BtnMouseEnterEventID = 2; 
+  BtnMouseEnterEventID = 2;
 
 
 Const
@@ -66,31 +66,31 @@ Const
   GWL_STYLE = (-16);
   ES_LEFT   =  0;
   ES_CENTER =  1;
-  ES_RIGHT  =  2;   
+  ES_RIGHT  =  2;
   //WS_CAPTION = $C00000;
   WS_CAPTION = $B00000;
 
 var
-  bgWelcome: TBitmapImage; 
+  bgWelcome: TBitmapImage;
   imgBg2 :Longint;
   btnClose, btnMin:HWND;
 
   DpiScalePctg:integer;
   CurrentDPI:integer;
-  
-  // page welcome 
+
+  // page welcome
   btnOneKey,btnCustomInstall:HWND;
   BtnOneKeyFont:TFont;
-  chkLicense:HWND;  
+  chkLicense:HWND;
   lblAboutTitle,lblLicense,lblWelcome,lblAgree,lblAboutHome,lblAboutTypora:TLabel;
- 
+
   // page finish;
   btnFinish:HWND;
 
-type 
+type
  HDC=LongWord;
  HFont=LongWord;
-  
+
 function SetWindowLong(Wnd: HWnd; Index: Integer; NewLong: Longint): Longint; external 'SetWindowLongA@user32.dll stdcall';
 function GetWindowLong(Wnd: HWnd; NewLong: Longint): Longint; external 'GetWindowLongA@user32.dll stdcall';
 
@@ -133,7 +133,7 @@ function SetTimer(hWnd: longword; nIDEvent, uElapse: LongWord; lpTimerFunc: Long
 
 type
   HoverEvent_OnHoverControlChanged = procedure (Control: TControl);
-  
+
 var
   LastMouse: TPoint;
   LastHoverControl: TControl;
@@ -145,7 +145,7 @@ function ScreenToClient(hWnd: HWND; var lpPoint: TPoint): BOOL;
   external 'ScreenToClient@user32.dll stdcall';
 function ClientToScreen(hWnd: HWND; var lpPoint: TPoint): BOOL;
   external 'ClientToScreen@user32.dll stdcall';
- 
+
 function HoverEvent_FindControl(Parent: TWinControl; P: TPoint): TControl;
 var
   Control: TControl;
@@ -182,7 +182,7 @@ end;
 procedure HoverEvent_HoverTimerProc(H: LongWord; Msg: LongWord; IdEvent: LongWord; Time: LongWord);
 var
   P: TPoint;
-  Control: TControl; 
+  Control: TControl;
 begin
   GetCursorPos(P);
   if P <> LastMouse then { just optimization }
@@ -235,7 +235,7 @@ begin
 end;
 
 procedure SetFormDragable(aForm: TForm);
-var 
+var
   MainLabel:TLabel;
 begin
   MainLabel := TLabel.Create(aForm);
@@ -251,47 +251,47 @@ begin
     Transparent := True;
     OnMouseDown := @_WizardFormMouseDown;
   end;
-end;   
+end;
 
 
 procedure TconSetVisible(lbl:TControl; bVis:boolean);
 begin
   if bVis then
-    begin 
+    begin
      lbl.Show;
-   end 
-  else 
-    begin 
+   end
+  else
+    begin
      lbl.Hide;
   end;
 end;
 
 procedure chkLicenseOnClick(bBtn :HWND);
-var 
+var
    isCheck:boolean;
 begin
    isCheck := BtnGetChecked(chkLicense);
-   if isCheck then 
-   begin 
+   if isCheck then
+   begin
      BtnSetEnabled(btnCustomInstall, True);
      BtnSetEnabled(btnOneKey, True);
-   end 
-   else 
-   begin 
+   end
+   else
+   begin
      BtnSetEnabled(btnCustomInstall, False);
      BtnSetEnabled(btnOneKey, False);
    end;
 end;
- 
+
 procedure BtnClose_OnClick(hBtn:HWND);
 begin
-  if ExitSetupMsgBox then  
-  begin  
+  if ExitSetupMsgBox then
+  begin
   WizardForm.Release;
   WizardForm.Close;
   ExitProcess(0);
   end;
-end;  
+end;
 
 procedure btnMin_OnClick(hBtn:HWND);
 begin
@@ -316,9 +316,9 @@ begin
   begin
     Result := strPath;
   end
-  else 
+  else
   begin
-    case SuppressibleMsgBox(CustomMessage('TyporaNotInstalled'), mbCriticalError, MB_YESNO, IDYES) of 
+    case SuppressibleMsgBox(CustomMessage('TyporaNotInstalled'), mbCriticalError, MB_YESNO, IDYES) of
       IDYES: ShellExec('open', CustomMessage('TyporaOfficialWebSite'), '', '', SW_SHOWNORMAL, ewNoWait, ErrorCode);
       IDNO: ;
     end;
@@ -331,23 +331,23 @@ procedure lblLicenseClick(sender :TObject);
 var
   ErrorCode: Integer;
 begin
-  ShellExec('open', CustomMessage('myAgreementURL'), '', '', SW_SHOWNORMAL, ewNoWait, ErrorCode);  
-end;  
+  ShellExec('open', CustomMessage('myAgreementURL'), '', '', SW_SHOWNORMAL, ewNoWait, ErrorCode);
+end;
 
 procedure lblAboutHomeClick(sender :TObject);
 var
   ErrorCode: Integer;
 begin
-  ShellExec('open', CustomMessage('aboutHomePageURL'), '', '', SW_SHOWNORMAL, ewNoWait, ErrorCode);  
-end; 
+  ShellExec('open', CustomMessage('aboutHomePageURL'), '', '', SW_SHOWNORMAL, ewNoWait, ErrorCode);
+end;
 
 
 procedure lblAboutTyporaClick(sender :TObject);
 var
   ErrorCode: Integer;
 begin
-  ShellExec('open', CustomMessage('TyporaOfficialWebSite'), '', '', SW_SHOWNORMAL, ewNoWait, ErrorCode);  
-end; 
+  ShellExec('open', CustomMessage('TyporaOfficialWebSite'), '', '', SW_SHOWNORMAL, ewNoWait, ErrorCode);
+end;
 
 procedure OnHoverControlChanged(Control: TControl);
 begin
@@ -357,18 +357,18 @@ begin
     begin
       lblLicense.Font.Style := lblLicense.Font.Style + [fsUnderline];
     end
-    else 
+    else
     begin
       lblLicense.Font.Style := lblLicense.Font.Style - [fsUnderline];
     end;
-  end ;  
+  end ;
   if lblAboutTypora <> nil then
   begin
     if lblAboutTypora = Control then
     begin
       lblAboutTypora.Font.Style := lblAboutTypora.Font.Style + [fsUnderline];
     end
-    else 
+    else
     begin
       lblAboutTypora.Font.Style := lblAboutTypora.Font.Style - [fsUnderline];
     end;
@@ -379,14 +379,14 @@ begin
     begin
       lblAboutHome.Font.Style := lblAboutHome.Font.Style + [fsUnderline];
     end
-    else 
+    else
     begin
       lblAboutHome.Font.Style := lblAboutHome.Font.Style - [fsUnderline];
     end;
   end ;
-end;  
- 
-Procedure InitializeWizard();     
+end;
+
+Procedure InitializeWizard();
 var
   winW:integer;
   winH:integer;
@@ -406,40 +406,40 @@ begin
     Bevel.Hide;
     NextButton.Width:=0;
     BackButton.Width:=0;
-    CancelButton.Width:=0;  
+    CancelButton.Width:=0;
     Width:=winW;
     Height:=winH;
     ClientHeight:=WinH;
-    ClientWidth:=WinW; 
-  end;     
+    ClientWidth:=WinW;
+  end;
 
-  ExtractTemporaryFile(CustomMessage('welcomePageBackground_grey')+'.png');     
+  ExtractTemporaryFile(CustomMessage('welcomePageBackground_grey')+'.png');
   imgBg2 := ImgLoad(WizardForm.Handle,ExpandConstant('{tmp}\'+CustomMessage('welcomePageBackground_grey')+'.png'),(0),(0),winW,winH,True,True);
-  
 
 
-  bgWelcome:= TBitmapImage.Create(WizardForm);     
-  ExtractTemporaryFile(CustomMessage('welcomePageBackground_colorful')+'.bmp');    
+
+  bgWelcome:= TBitmapImage.Create(WizardForm);
+  ExtractTemporaryFile(CustomMessage('welcomePageBackground_colorful')+'.bmp');
   with bgWelcome do
-  begin     
-    Parent := WizardForm       
+  begin
+    Parent := WizardForm
     Bitmap.LoadFromFile(ExpandConstant('{tmp}')+'\'+CustomMessage('welcomePageBackground_colorful')+'.bmp');
     Left := 0;
     Height := DpiScale(480)
-    Width:= DpiScale(0);      
+    Width:= DpiScale(0);
     Top := 0;
   end;
-  
-  ExtractTemporaryFile('btclose.png');          
+
+  ExtractTemporaryFile('btclose.png');
   btnClose:= BtnCreate(WizardForm.Handle, DpiScale(617), DpiScale(5), DpiScale(39),DpiScale(19), ExpandConstant('{tmp}\btclose.png'),1,False)
-  BtnSetEvent(btnClose,BtnClickEventID,WrapBtnCallback(@BtnClose_OnClick,1)); 
+  BtnSetEvent(btnClose,BtnClickEventID,WrapBtnCallback(@BtnClose_OnClick,1));
 
   ExtractTemporaryFile('btmin.png');
   btnMin:=BtnCreate(WizardForm.Handle,DpiScale(590),DpiScale(5),DpiScale(39),DpiScale(19),ExpandConstant('{tmp}\btmin.png'),1,False)
   BtnSetEvent(btnMin,BtnClickEventID,WrapBtnCallback(@btnMin_OnClick,1));
 
   //Òþ²Ø±ß¿ò¡¢Ô²½Ç
-  SetFormRoundRectRgn(WizardForm, 15);            
+  SetFormRoundRectRgn(WizardForm, 15);
   SetFormDragable(WizardForm);
 
   lblWelcome := TLabel.Create(WizardForm);
@@ -454,26 +454,26 @@ begin
     Left := DpiScale(10);
     Top := DpiScale(5);
   end;
-  
+
   ExtractTemporaryFile('btnOneKeyInstall.png');
-  btnOneKey:=BtnCreate(WizardForm.Handle,DpiScale(255),DpiScale(335),DpiScale(150), DpiScale(42), ExpandConstant('{tmp}\btnOneKeyInstall.png'),1,False) 
-  
+  btnOneKey:=BtnCreate(WizardForm.Handle,DpiScale(255),DpiScale(335),DpiScale(150), DpiScale(42), ExpandConstant('{tmp}\btnOneKeyInstall.png'),1,False)
+
   BtnSetText(btnOneKey, CustomMessage('welcomePageOnkeyBtn'));
   BtnOneKeyFont := TFont.Create;
-  with BtnOneKeyFont do begin 
+  with BtnOneKeyFont do begin
     Size := StrToInt(CustomMessage('welcomePageOnkeyBtnSize'));
     Name:='Î¢ÈíÑÅºÚ';
-    Color:=$000000; 
+    Color:=$000000;
   end;
   BtnSetFont(btnOneKey, BtnOneKeyFont.Handle);
   BtnSetFontColor(btnOneKey,$000000,$000000,$000000,$000000);
   BtnSetEvent(btnOneKey,BtnClickEventID,WrapBtnCallback(@btnOneKey_OnClick,1));
 
-  
+
   ExtractTemporaryFile('check.png');
   chkLicense :=BtnCreate(WizardForm.Handle,DpiScale(33),DpiScale(StrToInt(CustomMessage('positionTopLicense'))+2),
   DpiScale(15),DpiScale(15), ExpandConstant('{tmp}\check.png'),1, True);
-  //BtnSetChecked(chkLicense, True); 
+  //BtnSetChecked(chkLicense, True);
   chkLicenseOnClick(chkLicense);
   BtnSetEvent(chkLicense,BtnClickEventID,WrapBtnCallback(@chkLicenseOnClick,1));
 
@@ -483,12 +483,12 @@ begin
     Caption := CustomMessage('haveReadLicense');
     Transparent := true;
     Font.Size:= 10
-    Font.Name:='Î¢ÈíÑÅºÚ' 
+    Font.Name:='Î¢ÈíÑÅºÚ'
     Font.Color:=$000000
     Left := DpiScale(50);
     Top := DpiScale(StrToInt(CustomMessage('positionTopLicense')));
   end;
-  
+
   lblLicense := TLabel.Create(WizardForm);
   with lblLicense do
   begin
@@ -500,11 +500,11 @@ begin
     Font.Color:=$986800
     Left:= DpiScale(StrToInt(CustomMessage('positionLeftLicense')));
     Top := DpiScale(StrToInt(CustomMessage('positionTopLicense')));
-    OnClick:=@lblLicenseClick; 
+    OnClick:=@lblLicenseClick;
     Cursor:=crHand;
-  end; 
+  end;
 
-  
+
   lblAboutTitle := TLabel.Create(WizardForm);
   with lblAboutTitle do
   begin
@@ -515,9 +515,9 @@ begin
     Font.Name:='Î¢ÈíÑÅºÚ'
     Font.Color:=$000000
     Left:= DpiScale(StrToInt(CustomMessage('positionLeftAboutTitle')));
-    Top := DpiScale(StrToInt(CustomMessage('positionTopAbout'))); 
+    Top := DpiScale(StrToInt(CustomMessage('positionTopAbout')));
   end;
-  
+
 
   lblAboutHome := TLabel.Create(WizardForm);
   with lblAboutHome do
@@ -530,10 +530,10 @@ begin
     Font.Color:=$986800
     Left:= DpiScale(StrToInt(CustomMessage('positionLeftHomePage')));
     Top := DpiScale(StrToInt(CustomMessage('positionTopAbout')));
-    OnClick:=@lblAboutHomeClick; 
+    OnClick:=@lblAboutHomeClick;
     Cursor:=crHand;
   end;
-  
+
 
   lblAboutTypora := TLabel.Create(WizardForm);
   with lblAboutTypora do
@@ -546,10 +546,10 @@ begin
     Font.Color:=$986800
     Left:= DpiScale(StrToInt(CustomMessage('positionLeftTypora')));
     Top := DpiScale(StrToInt(CustomMessage('positionTopAbout')));
-    OnClick:=@lblAboutTyporaClick; 
+    OnClick:=@lblAboutTyporaClick;
     Cursor:=crHand;
-  end;  
-  
+  end;
+
   HoverEvent_Init(@OnHoverControlChanged);
   //Ó¦ÓÃÒ³ÃæÐÞ¸Ä
   ImgApplyChanges(WizardForm.Handle);
@@ -557,41 +557,45 @@ end;
 
 //Ò³Ãæ·¢Éú±ä»¯
 procedure CurPageChanged(CurPageID: Integer);
-var 
-  isWpReady,isWpFinished : boolean;
+var
+  isWpReady,isWpFinished,isWpInstalling : boolean;
 begin
   // Log(format( 'CurPageID id = %d',[ CurPageID ]));
   isWpReady      := CurPageID = wpReady;
   isWpFinished   := CurPageID = wpFinished;
-  
+  isWpInstalling := CurPageID = wpInstalling;
+
   BtnSetVisibility(btnClose,      isWpReady);
   BtnSetVisibility(btnOneKey,     isWpReady);
   BtnSetVisibility(chkLicense,    isWpReady);
 
-  TconSetVisible(lblAboutTypora,  isWpReady)
-  TconSetVisible(lblAboutHome,    isWpReady)
-  TconSetVisible(lblAboutTitle,   isWpReady)
-  TconSetVisible(lblLicense,      isWpReady)
-  TconSetVisible(lblAgree,        isWpReady)
+  if isWpInstalling then
+  begin
+    TconSetVisible(lblAboutTypora,  isWpReady);
+    TconSetVisible(lblAboutHome,    isWpReady);
+    TconSetVisible(lblAboutTitle,   isWpReady);
+    TconSetVisible(lblLicense,      isWpReady);
+    TconSetVisible(lblAgree,        isWpReady);
+  end;
 
   if isWpFinished then
   begin
-    // Log('CurPageID = wpFinished');   
-    
-    btnFinish:=BtnCreate(WizardForm.Handle,DpiScale(255),DpiScale(335),DpiScale(150), DpiScale(42), ExpandConstant('{tmp}\btnOneKeyInstall.png'),1,False) 
-    
+    // Log('CurPageID = wpFinished');
+
+    btnFinish:=BtnCreate(WizardForm.Handle,DpiScale(255),DpiScale(335),DpiScale(150), DpiScale(42), ExpandConstant('{tmp}\btnOneKeyInstall.png'),1,False)
+
     BtnSetText(btnFinish, CustomMessage('finishPageFinishBtn'));
     BtnOneKeyFont := TFont.Create;
-    with BtnOneKeyFont do begin 
+    with BtnOneKeyFont do begin
       Size := StrToInt(CustomMessage('finishPageFinishBtnSize'));
       Name:='Î¢ÈíÑÅºÚ';
-      Color:=$000000; 
+      Color:=$000000;
     end;
     BtnSetFont(btnFinish, BtnOneKeyFont.Handle);
     BtnSetFontColor(btnFinish,$000000,$000000,$000000,$000000);
     BtnSetEvent(btnFinish,BtnClickEventID,WrapBtnCallback(@btnFinish_OnClick,1));
   end;
- 
+
   ImgApplyChanges(WizardForm.Handle);
 end;
 
@@ -599,7 +603,13 @@ end;
 procedure CurInstallProgressChanged(CurProgress, MaxProgress: Integer);
 begin
   // Log(Format('Done: %.2f %%', [(CurProgress * 100.0) / MaxProgress]));
-  bgWelcome.Width:= 660*CurProgress*DpiScalePctg / MaxProgress/1000;    
- 
+  bgWelcome.Width:= 660*CurProgress*DpiScalePctg / MaxProgress/1000;
+
   ImgApplyChanges(WizardForm.Handle);
+
+  TconSetVisible(lblAboutTypora,  False);
+  TconSetVisible(lblAboutHome,    False);
+  TconSetVisible(lblAboutTitle,   False);
+  TconSetVisible(lblLicense,      False);
+  TconSetVisible(lblAgree,        False);
 end;
