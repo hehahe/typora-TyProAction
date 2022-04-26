@@ -1,5 +1,3 @@
-<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
-<script>LA.init({id: "JfbAY4TbnOe2U24Z",ck: "JfbAY4TbnOe2U24Z",autoTrack:true})</script>
 # 用户许可协议
 
 For English version visit [**HERE**](Agreements.md)
