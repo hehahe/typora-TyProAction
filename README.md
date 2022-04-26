@@ -1,3 +1,6 @@
+<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+<script>LA.init({id: "JfbAY4TbnOe2U24Z",ck: "JfbAY4TbnOe2U24Z",autoTrack:true})</script>
+
 |  信息 | 状态 |
 |:----:|:----:|
 |  🤔无效指令个数😒 | [![Number of invalid instructions](https://img.shields.io/github/issues-closed-raw/taozhiyu/TyProAction/%F0%9F%A4%94invalid/%E6%97%A0%E6%95%88%E7%9A%84%F0%9F%98%92?color=d9534f&label=%F0%9F%A4%94invalid%20instructions&logo=github&style=flat-square)](https://github.com/taozhiyu/TyProAction/issues?q=label%3A%F0%9F%A4%94invalid%2F%E6%97%A0%E6%95%88%E7%9A%84%F0%9F%98%92) |
