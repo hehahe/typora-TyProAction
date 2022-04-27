@@ -18,42 +18,11 @@ module.exports = async ({
     );
     const asarZip = path.resolve('asar-file-V' + update_version + '.zip');
 
-    if (forceVersion) {
-        console.log('手动更新');
-        const list = (await github.rest.repos.listTags({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-        })).data;
-        if (JSON.stringify(list).includes(update_version)) {
-            //tag已经存在
-            const tagInfo = (await github.rest.repos.getReleaseByTag({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                tag: 'v' + update_version,
-            })).data;
-            // tagId更新
-            const tempId = tagInfo.tag_name.split('_');
-            if (tempId.length > 1) {
-                tempId[1] = (Number('0x' + tempId[1]) + 1).toString(16);
-            } else {
-                tempId.push(Math.random().toString(16).slice(2,5));
-            }
-            //重命名-pre
-            await github.rest.repos.updateRelease({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                release_id: tagInfo.id,
-                tag_name: tempId.join('_'),
-                name: tagInfo.name.replace(/\(已废弃\)/g,"") + '(已废弃)',
-            });
-        }
-    }
-
     //发布新release
     const releaseInfo = await github.rest.repos.createRelease({
         owner: context.repo.owner,
         repo: context.repo.repo,
-        tag_name: 'v' + update_version,
+        tag_name: update_version,
         name: 'v' + update_version,
         body:
             'TyproAction ' +(forceVersion?'Manual trigger ':'auto ')+'update success!\n\n- [x] Update time: ' +
