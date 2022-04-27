@@ -22,7 +22,7 @@ module.exports = async ({
     const releaseInfo = await github.rest.repos.createRelease({
         owner: context.repo.owner,
         repo: context.repo.repo,
-        tag_name: update_version,
+        tag_name: 'v'+update_version,
         name: 'v' + update_version,
         body:
             'TyproAction ' +(forceVersion?'Manual trigger ':'auto ')+'update success!\n\n- [x] Update time: ' +
