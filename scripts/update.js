@@ -56,7 +56,7 @@ module.exports = async ({
         tag_name: 'v' + update_version,
         name: 'v' + update_version,
         body:
-            'TyproAction auto update success!\n\n- [x] Update time: ' +
+            'TyproAction ' +(forceVersion?'Manual trigger ':'auto ')+'update success!\n\n- [x] Update time: ' +
             new Date().toUTCString(),
         prerelease: isDev,
     });
