@@ -95,8 +95,8 @@ def buildTyPro(version: str):
         regex = r"MyAppVersion \"([\d\.]{3,}(-dev)?)\""
         result = re.sub(regex, "MyAppVersion \""+version +
                         "\"", code, 0, re.MULTILINE)
-        regex = r"packages\\([\d\.]{3,}(-dev)?)"
-        result = re.sub(regex, r"packages\\"+version, result, 0, re.MULTILINE)
+        # regex = r"packages\\([\d\.]{3,}(-dev)?)"
+        # result = re.sub(regex, r"packages\\"+version, result, 0, re.MULTILINE)
         f.seek(0)
         f.truncate()
         f.write(result)

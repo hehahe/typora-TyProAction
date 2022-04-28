@@ -47,8 +47,7 @@
 
 ### Feedback specification
 
-1. Both Chinese and English are acceptable.
-2. Use the shortest and most concise text description possible for the title.
-3. ⚠️⚠️!!ADD [🐛 bug report/反馈 🐛](https://github.com/taozhiyu/TyProAction/labels/%3Abug%3A%20bug%20report%2F反馈%20%3Abug%3A) Tags!!⚠️⚠️
-
-   (Failure to do so will result in the robot recognizing the wrong keygen`)
+1. Submit issues using `Bug 反馈` (in Chinese) or `Bug Report` (in English) in the `issue template`
+2. Both Chinese and English are acceptable.
+3. Use the shortest and most concise text description possible for the title.
+4. Fill in according to the template, the template adds the [🐛 bug report/反馈 🐛](https://github.com/taozhiyu/TyProAction/labels/%3Abug%3A%20bug%20report%2F反馈%20%3Abug%3A) label by default, no change required.

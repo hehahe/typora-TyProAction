@@ -54,9 +54,7 @@ For English version visit [**HERE**](bugFound.md)
 
 ### 反馈规范
 
-1. 中英文均可
-2. 标题使用尽可能简短精炼的文字描述
-3. ⚠️⚠️!! 添加[🐛 bug report/反馈 🐛](https://github.com/taozhiyu/TyProAction/labels/%3Abug%3A%20bug%20report%2F反馈%20%3Abug%3A)标签!!⚠️⚠️
-
-   (否则会导致机器人识别成错误的`keygen`)
-
+1. 使用`issue模板`中的`Bug 反馈`（中文）或`Bug Report`（英文）提交 issue
+2. 中英文均可
+3. 标题使用尽可能简短精炼的文字描述
+4. 按照模板填写，模板默认添加了[🐛 bug report/反馈 🐛](https://github.com/taozhiyu/TyProAction/labels/%3Abug%3A%20bug%20report%2F反馈%20%3Abug%3A)反馈标签，无需修改

@@ -38,7 +38,7 @@ Name: "chinesesimp"; MessagesFile: ".\Languages\ChineseSimp.isl"
 
 [Files]
 Source: ".\res\*"; DestDir: "{tmp}"; Flags: dontcopy solidbreak ; Attribs: hidden system
-Source: "..\..\packages\1.2.2-dev\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\..\packages\{#MyAppVersion}\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
