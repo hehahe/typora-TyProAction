@@ -60,7 +60,7 @@ module.exports = async ({ github, context, crypto, PRIVATE_KEY }) => {
 
             if (commMatch && commMatch.length === 3) {
                 try{
-                    Buffer.from(commMatch[0], 'base64').toString()
+                    JSON.parse(Buffer.from(commMatch[0], 'base64').toString())
                 }catch(e){
                     console.log(e);
                     await endWithComment(
