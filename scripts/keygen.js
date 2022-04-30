@@ -59,6 +59,15 @@ module.exports = async ({ github, context, crypto, PRIVATE_KEY }) => {
                 );
 
             if (commMatch && commMatch.length === 3) {
+                try{
+                    Buffer.from(commMatch[0], 'base64').toString()
+                }catch(e){
+                    console.log(e);
+                    await endWithComment(
+                        '机器码读取错误，请检查格式或重试\n\nMachine code reading error, please check the format or retry'
+                    );
+                    return;
+                }
                 const code = doEnc(...commMatch);
                 const key = crypto
                     .privateEncrypt(PRIVATE_KEY, Buffer.from(code))
