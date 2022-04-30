@@ -64,7 +64,7 @@ module.exports = async ({ github, context, crypto, PRIVATE_KEY }) => {
                 }catch(e){
                     console.log(e);
                     await endWithComment(
-                        '机器码读取错误，请检查格式或重试\n\nMachine code reading error, please check the format or retry'
+                        '机器码读取错误，请检查格式或重试\n\nMachine code reading error, please check the format or retry\n\n或者是您需要的软件不是本仓库支持的软件\n\nOr the software you need is not supported by this repository.'
                     );
                     return;
                 }
