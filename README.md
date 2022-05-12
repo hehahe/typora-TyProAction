@@ -71,10 +71,19 @@ Previous Version（Manual copying）：
 
 ## When you use
 
-![TyPRO](http://pic.rmb.bdstatic.com/bjh/552764cbd771d08765e696234a946fc7.gif)
+![TyPRO](https://pic.rmb.bdstatic.com/bjh/552764cbd771d08765e696234a946fc7.gif)
 
-If the image above failed to load cause of some irresistible reasons, visit [【this】](http://pic.rmb.bdstatic.com/bjh/552764cbd771d08765e696234a946fc7.gif) link.
+If the image above failed to load cause of some irresistible reasons, visit [【this】](https://pic.rmb.bdstatic.com/bjh/552764cbd771d08765e696234a946fc7.gif) link.
 
+> Notes.
+>
+> If the issue does not respond correctly for more than 1 minute
+> 
+> Please check if the corresponding action is processed correctly (green `✓` mark)
+> 
+> Otherwise, please wait for some time and then click the checkbox of [Agree to Agreement], or re-new an issue (This may be caused by a server problem on github)
+> 
+> If you still can't get a correct response after several attempts, please wait longer and retry the previous step
 ## Who has starred
 
 [![Stargazers repo roster for @taozhiyu/TyProAction](https://reporoster.com/stars/dark/taozhiyu/TyProAction)](https://github.com/taozhiyu/TyProAction/stargazers)
