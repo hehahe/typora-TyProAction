@@ -301,6 +301,7 @@ end;
 procedure btnOneKey_OnClick(hBtn:HWND);
 begin
   WizardForm.NextButton.OnClick(WizardForm);
+  WizardForm.NextButton.OnClick(WizardForm);
 end;
 
 procedure btnFinish_OnClick(hBtn:HWND);

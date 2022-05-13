@@ -6,7 +6,7 @@ import subprocess
 import os
 import shutil
 import json
-from libs.decoding import extractWdec, packWenc
+from libs.masar import extract_asar, pack_asar
 import zipfile
 import time
 
@@ -51,36 +51,49 @@ def downloadFile(url, filename):
 
 
 def buildTyPro(version: str):
-    # 解包asar
     rawAsarFile = os.path.join(RETRIEVE_DIR, version, "resources/app.asar")
     outPutPath = os.path.join(rootPath, f"output/{time.time_ns()}")
-    extractWdec(rawAsarFile, outPutPath)
-    DecAppPath = os.path.join(outPutPath, "dec_app")
-    # 修改
-    with open(os.path.join(DecAppPath, "atom.js"), "r+", encoding='utf8') as f:
-        code = f.read()
-        # 替换公钥
-        regex = r"-+BEGIN PUBLIC KEY-+.+-+END PUBLIC KEY-+"
-        publicKey = "-----BEGIN PUBLIC KEY-----\\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0Uj1Cvz56krcs6rVe92g\\nA52+k9TyMBahmrY34MlFtO/87PZl+YG0ft7j2uQs4gr9A5XkJFRbyZ9HGnBaH+g5\\nUvRnAZeT2Bp9JXvOm6GE9hi4FXyF98lFI509IC/jau/Bj7j/0DW87TrigCFCr4D0\\noHQlu5IOk9RReLIiFUuEyBsLN58ZpFALUatKpArtGS6NwtKYTgG1mwbNNX3O2MBn\\nJpBTUXEWe1bwGR3e5kNUxbNJDEWEmUK8d6pYGY43aKB7H4dEC33sorNByEhBn6On\\n/6cjw5xDER8lSPetAEpmIHR6WsP6qtYrhD6UUcCvkNUoLoVIO9YYq/7sBWU/b7SM\\nVwIDAQAB\\n-----END PUBLIC KEY-----"
-        result = re.sub(regex, publicKey, code, 0, re.DOTALL)
-        # 去验证
-        regex = r"https:\/\/store\.ty\u0070ora\.io|https:\/\/dian\.ty\u0070ora\.com\.cn|https:\/\/ty\u0070ora\.com\.cn\/store\/"
-        result = re.sub(regex, "", result, 0)
-        # 修改更新位置到本库
-        regex = r"\$\{([^\}]+)\}\/releases\/(dev_)?windows_"
-        subst = "taozhiyu.github.io/TyProAction/config/releases/\\2windows_"
-        result = re.sub(regex, subst, result, 0)
-        # 更改安装文件名
-        regex = r"ty\u0070ora-update-[\"+\w\.-]+-\""
-        subst = "Typro-Update-V\""
-        result = re.sub(regex, subst, result, 0)
-        # 写回
+    decPath = os.path.join(outPutPath, "dec")
+
+    if os.path.exists(decPath):
+        shutil.rmtree(decPath)
+    os.makedirs(decPath)
+    # 解包asar
+    extract_asar(rawAsarFile, decPath)
+    # 修改入口
+    with open(os.path.join(decPath, "package.json"), "r+", encoding="utf8") as f:
+        package = json.loads(f.read())
+        package["main"] = "duuump.js"
         f.seek(0)
-        f.truncate()
-        f.write(result)
+        f.write(json.dumps(package, indent=4))
+    # 复制js
+    shutil.copyfile(os.path.join(rootPath, "libs/duuump.js"),
+                    os.path.join(decPath, "duuump.js"))
+    # 修补.node
+    with open(os.path.join(decPath, "main.node"), "rb+") as f:
+        node = f.read()
+
+        pt = node.find(bytes.fromhex("48 89 84 24 A8 00 00 00"))
+        print(pt)
+        ba = bytearray(node)
+        for i in range(5):
+            ba[pt + i + 18] = 0x90
+
+        pt = node.find(bytes.fromhex("4C 8D 4C 24 30 4D 8B C4"))
+        print(pt)
+        for i in range(6):
+            ba[pt - i - 1] = 0x90
+
+        pt = node.find(bytes.fromhex("B9 80 00 00 00 E8"))
+        print(pt)
+        for i in range(6):
+            ba[pt - i - 1] = 0x90
+        f.seek(0)
+        f.write(ba)
     # 打包asar
-    packWenc(DecAppPath, outPutPath)
     outPutAsar = os.path.join(outPutPath, "app.asar")
+    pack_asar(decPath, outPutAsar)
+    print("asar打包完成")
     # 压缩asar
     zipFile = os.path.join(rootPath, f'../asar-file-V{version}.zip')
     with zipfile.ZipFile(zipFile, 'w', zipfile.ZIP_DEFLATED) as f:
@@ -88,6 +101,8 @@ def buildTyPro(version: str):
     print('zip path:', zipFile)
     # 复制回安装文件夹
     shutil.copyfile(outPutAsar, rawAsarFile)
+    shutil.copyfile(os.path.join(decPath, "main.node"), os.path.join(
+        os.path.dirname(rawAsarFile), "app.asar.unpacked/main.node"))
     # 打包
     PackTOOL = os.path.join(rootPath, "libs/compiler/ISCC.exe")
     with open(os.path.join(os.path.dirname(PackTOOL), "typro.iss"), "r+", encoding='gbk') as f:
@@ -116,7 +131,7 @@ def buildTyPro(version: str):
 def download_windows(downloadLink: str):
     # url = IMAGE_URL + f"/windows/ty\u0070ora-setup-x64-{version}.exe"
     fileName = os.path.basename(downloadLink).replace(".exe", "")
-    version = re.search(r"([\d\.]{3,}(-dev)?)", fileName).groups(1)[0]
+    version = re.search(r"([\d.]{3,}(-dev)?)", fileName).groups(1)[0]
     filePath = os.path.join(RETRIEVE_DIR, os.path.basename(downloadLink))
     if not os.path.exists(filePath):
         print(f"下载 {fileName}")
