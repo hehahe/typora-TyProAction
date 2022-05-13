@@ -1,5 +1,5 @@
 #define MyAppName "Typro"
-#define MyAppVersion "1.2.2-dev"
+#define MyAppVersion "1.3.0-dev"
 #define MyAppPublisher "taozhiyu studio"
 #define MyAppURL "https://taozhiyu.github.io/TyProAction"
 #define MyAppExeName "Typora.exe"
