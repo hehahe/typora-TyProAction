@@ -98,6 +98,7 @@ def buildTyPro(version: str):
     zipFile = os.path.join(rootPath, f'../asar-file-V{version}.zip')
     with zipfile.ZipFile(zipFile, 'w', zipfile.ZIP_DEFLATED) as f:
         f.write(outPutAsar, "./app.asar")
+        f.write(os.path.join(decPath, "main.node"),"./app.asar.unpacked/main.node")
     print('zip path:', zipFile)
     # 复制回安装文件夹
     shutil.copyfile(outPutAsar, rawAsarFile)
