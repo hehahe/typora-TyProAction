@@ -84,6 +84,7 @@ If the image above failed to load cause of some irresistible reasons, visit [【
 > Otherwise, please wait for some time and then click the checkbox of [Agree to Agreement], or re-new an issue (This may be caused by a server problem on github)
 > 
 > If you still can't get a correct response after several attempts, please wait longer and retry the previous step
+
 ## Who has starred
 
 [![Stargazers repo roster for @taozhiyu/TyProAction](https://reporoster.com/stars/dark/taozhiyu/TyProAction)](https://github.com/taozhiyu/TyProAction/stargazers)
