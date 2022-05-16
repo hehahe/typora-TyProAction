@@ -75,16 +75,22 @@ def buildTyPro(version: str):
 
         pt = node.find(bytes.fromhex("48 89 84 24 A8 00 00 00"))
         print(pt)
+        if pt <0:
+            raise 'hook node错误'
         ba = bytearray(node)
         for i in range(5):
             ba[pt + i + 18] = 0x90
 
         pt = node.find(bytes.fromhex("4C 8D 4C 24 30 4D 8B C4"))
+        if pt <0:
+            raise 'hook node错误'
         print(pt)
         for i in range(6):
             ba[pt - i - 1] = 0x90
 
         pt = node.find(bytes.fromhex("B9 80 00 00 00 E8"))
+        if pt <0:
+            raise 'hook node错误'
         print(pt)
         for i in range(6):
             ba[pt - i - 1] = 0x90
