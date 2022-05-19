@@ -4,8 +4,8 @@
 #define MyAppURL "https://taozhiyu.github.io/TyProAction"
 #define MyAppExeName "Typora.exe"
 #define MyAppId "37771A20-7167-44C0-B322-FD3E54C56156"
-#define MyRegInstallPath_sk "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{"+MyAppId+"}_is1"
-#define MyRegInstallPath_vn "InstallLocation"
+#define MyRegInstallPath_sk "SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\Typora.exe"
+#define MyRegInstallPath_vn ""
 #define MyAppLicenseURL "https://taozhiyu.github.io/TyProAction"
 
 
@@ -312,19 +312,30 @@ function GetInstallPath(Param: String):String;
 var
   strPath:String;
   ErrorCode: Integer;
+  regPath:Integer;
+  isGot:Boolean;
 begin
-  if RegQueryStringValue(hklm64, '{#MyRegInstallPath_sk}', '{#MyRegInstallPath_vn}', strPath) then
-  begin
-    Result := strPath;
-  end
-  else
-  begin
-    case SuppressibleMsgBox(CustomMessage('TyporaNotInstalled'), mbCriticalError, MB_YESNO, IDYES) of
-      IDYES: ShellExec('open', CustomMessage('TyporaOfficialWebSite'), '', '', SW_SHOWNORMAL, ewNoWait, ErrorCode);
-      IDNO: ;
-    end;
-  ExitProcess(0);
+  if IsWin64 then
+    regPath := hklm64
+  else   
+    regPath := hklm32;
 
+  isGot:=RegQueryStringValue(regPath, '{#MyRegInstallPath_sk}', '{#MyRegInstallPath_vn}', strPath) 
+  if isGot then
+    Result := strPath
+  else
+  begin 
+    isGot:=RegQueryStringValue(HKCU, '{#MyRegInstallPath_sk}', '{#MyRegInstallPath_vn}', strPath) 
+    if isGot then
+      Result := strPath
+    else
+    begin
+      case SuppressibleMsgBox(CustomMessage('TyporaNotInstalled'), mbCriticalError, MB_YESNO, IDYES) of
+        IDYES: ShellExec('open', CustomMessage('TyporaOfficialWebSite'), '', '', SW_SHOWNORMAL, ewNoWait, ErrorCode);
+        IDNO: ;
+      end;
+      ExitProcess(0);
+    end
   end
 end;
 
