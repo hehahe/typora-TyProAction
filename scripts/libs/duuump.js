@@ -26,5 +26,5 @@ VwIDAQAB
             .replace(/ty\u0070ora-update-["+\w.-]+-"/g, 'Typro-Update-V"');
     return oldCompile.call(this, content, filename);
 };
-process.argv.length = 1;
+// process.argv.length = 1;
 require('./main.node');
