@@ -322,12 +322,12 @@ begin
 
   isGot:=RegQueryStringValue(regPath, '{#MyRegInstallPath_sk}', '{#MyRegInstallPath_vn}', strPath) 
   if isGot then
-    Result := strPath
+    Result := ExtractFilePath(strPath)
   else
   begin 
     isGot:=RegQueryStringValue(HKCU, '{#MyRegInstallPath_sk}', '{#MyRegInstallPath_vn}', strPath) 
     if isGot then
-      Result := strPath
+      Result := ExtractFilePath(strPath)
     else
     begin
       case SuppressibleMsgBox(CustomMessage('TyporaNotInstalled'), mbCriticalError, MB_YESNO, IDYES) of
