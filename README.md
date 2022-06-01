@@ -59,10 +59,11 @@ Current Version（1-Click Update）：
 
 > Notes.
 >
-> 1. Modify `windows-x64` only, update link for `stable` version
-> 1. Use [~~jsdelivr~~](https://www.jsdelivr.com/)(replaced with [GitHub Proxy](https://ghproxy.com/) and [statically](https://statically.io/)) as CDN acceleration to solve the problem that some (most) places in Chinese mainland are not accessible properly
+> 1. Modify `windows-x64` **only**, update link for `stable` and `dev` version
 > 1. NOLY for study and research purposes, if the script is not working, it may not be updated in time!
 > 1. Please go to the official website to enter the right one if you like it.
+> 1. Use [Fast Git](https://fastgit.org/) as CDN acceleration to solve the problem that some (most) places in Chinese mainland are not accessible properly.
+> > it used to be [~~jsdelivr~~](https://www.jsdelivr.com/), [~~statically~~](https://statically.io/) and [~~GitHub Proxy~~](https://ghproxy.com/)
 
 Previous Version（Manual copying）：
 
