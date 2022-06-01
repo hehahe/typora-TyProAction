@@ -55,8 +55,7 @@ module.exports = async ({
         console.log(conf);
         conf.version = update_version;
         conf.download = assetInfo.data.browser_download_url;
-        conf.downloadCN =
-            'https://ghproxy.com/' + assetInfo.data.browser_download_url;
+        conf.downloadCN = assetInfo.data.browser_download_url.replace("github.com","hub.fastgit.xyz");
         if (isDev) conf.download = conf.downloadCN;
         fs.writeFileSync(win64ConfigPath, JSON.stringify(conf, '', 4));
     }
