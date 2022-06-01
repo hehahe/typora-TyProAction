@@ -59,10 +59,11 @@
 
 > 注：
 >
-> 1. 仅修改了`windows-x64`的更新链接（包括开发版和稳定版）
-> 1. 使用 [~~jsdelivr~~](https://www.jsdelivr.com/)( 更换为 [GitHub Proxy](https://ghproxy.com/) 和 [statically](https://statically.io/) )作为 CDN 加速，以解决国内某些（大部分）地方无法正常访问的问题
+> 1. 仅修改了`windows-x64`版本（包括开发版和稳定版）
 > 1. 仅做学习研究使用，如脚本失效，不一定及时更新！
-> 1. 喜欢请到官网入正。
+> 1. 如果您喜欢该软件，请到官网入正。
+> 1. 使用[Fast Git](https://fastgit.org/)作为 CDN 加速，以解决国内某些（大部分）地方无法正常访问的问题
+> > 曾经使用过[~~jsdelivr~~](https://www.jsdelivr.com/), [~~statically~~](https://statically.io/) 和 [~~GitHub Proxy~~](https://ghproxy.com/) 作为本项目的CDN。
 
 旧版（手动复制）：
 
